@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-
+import os
 from discord.utils import get
 
 def get_prefix(bot, msg):
