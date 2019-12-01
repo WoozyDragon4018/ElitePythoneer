@@ -51,4 +51,4 @@ async def warn(ctx, user: discord.User, *, reason=None):
     await user.send(embed=embed)
     await ctx.send(str(user) + ' has succesfully been warned for ' + reason)
 
-bot.run(process.env.token)
+bot.run(os.getenv('token'))
