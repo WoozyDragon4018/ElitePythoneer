@@ -24,4 +24,4 @@ async def help(ctx):
 
 
 
-bot.run(os.getenv('TOKEN'))
+bot.run('NjQ5NTIzMDEyNTIwOTAyNjcx.XeNwLw.Y1R3m2ZxnevOQRNlQv2r-W8FOAE')
