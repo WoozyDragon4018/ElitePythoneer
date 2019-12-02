@@ -109,7 +109,7 @@ async def warn(ctx, user: discord.User, *, reason=None):
     channel = bot.get_channel(650348478056235014)
     embed = discord.Embed(color=0xFFFFFF)
     embed.set_author(name='Mod Command Used!')
-    embed.add_field(name='Warn Command used', value=f'{ctx.author.mention} has warned ' + str(user), inline=False)
+    embed.add_field(name='Warn Command used', value=f'{ctx.author} has warned ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
     
@@ -129,7 +129,7 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     channel = bot.get_channel(650348478056235014)
     embed = discord.Embed(color=0xFFFFFF)
     embed.set_author(name='Mod Command Used!')
-    embed.add_field(name='Kick Command used', value=f'{ctx.author.mention} has kicked ' + str(user), inline=False)
+    embed.add_field(name='Kick Command used', value=f'{ctx.author} has kicked ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
         
@@ -145,7 +145,7 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     channel = bot.get_channel(650348478056235014)
     embed = discord.Embed(color=0xFFFFFF)
     embed.set_author(name='Mod Command Used!')
-    embed.add_field(name='Ban Command used', value=f'{ctx.author.mention} has banned ' + str(user), inline=False)
+    embed.add_field(name='Ban Command used', value=f'{ctx.author} has banned ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
 
