@@ -64,5 +64,17 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     await user.send(embed=embed)
     await user.kick(reason=reason)
     await ctx.send(str(user) + ' has succesfully been kicked for : ' + reason)
+        
+@commands.has_role("Staff")
+@bot.command(pass_context=True)
+async def ban(ctx, user:discord.Member, *, reason=None):
+    embed = discord.Embed(color=0xFFFF)
+    embed.set_author(name='Kicked!')
+    embed.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
+    await user.send(embed=embed)
+    await user.ban(reason=reason)
+    await ctx.send(str(user) + ' has succesfully been banned for : ' + reason)
+    
+
     
 bot.run(os.getenv('token'))
