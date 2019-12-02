@@ -84,10 +84,11 @@ async def clear(ctx,amount:int=10):
     if ctx.author.guild_permissions.manage_messages:
         await ctx.channel.purge(limit=amount+1)
         await ctx.send(f"{amount} message has been deleted."if(int(amount)is 1)else(f"{amount} messages have been deleted."),delete_after=5)
+        channel = bot.get_channel(650348478056235014)
         embed = discord.Embed(color=0xFFFFFF)
         embed.set_author(name='Mod Command Used!')
         embed.add_field(name='Clear Command used', value=f'{ctx.author} has used `purge` command.')
-        await ctx.send(bot.get_channel('650348478056235014'), embed=embed)
+        await channel.send(embed=embed)
 
 @clear.error
 async def clear_error(ctx, error):
@@ -146,6 +147,14 @@ async def on_command_error(ctx, error):
         embed = discord.Embed(color=0xff0000)
         embed.set_author(name='Error!')
         embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
+        await ctx.send(embed=embed)
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(color=0xff0000)
+        embed.set_author(name='Error!')
+        embed.add_field(name='Permissions', value='You don\'t have the permissions to run this command!', inline=False)
         await ctx.send(embed=embed)
 
 
