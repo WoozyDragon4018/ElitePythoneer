@@ -35,25 +35,25 @@ async def help(ctx):
 #Calculator!
 #Addition...
 @bot.command
-async def a(ctx, numi, numii):
+async def add(ctx, numi, numii):
     sum_value = int(numi) + int(numii)
     await ctx.send(str(numi) + ' + ' + str(numii) + ' = ' + str(sum_value))
 
 #Multiplication
 @bot.command
-async def m(ctx, numi, numii):
+async def mul(ctx, numi, numii):
     sum_value = int(numi) * int(numii)
     await ctx.send(str(numi) + ' x ' + str(numii) + ' = ' + str(sum_value))
 
 #Subtraction
 @bot.command
-async def s(ctx, numi, numii):
+async def sub(ctx, numi, numii):
     sum_value = int(numi) - int(numii)
     await ctx.send(str(numi) + ' - ' + str(numii) + ' = ' + str(sum_value))
 
 #Division
 @bot.command
-async def d(ctx, numi, numii):
+async def div(ctx, numi, numii):
     sum_value = int(numi) / int(numii)
     await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
 
