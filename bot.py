@@ -57,12 +57,12 @@ async def on_message(message):
     
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
-async def kick(msg, user:discord.Member, *, reason=None):
+async def kick(ctx, msg, user:discord.Member, *, reason=None):
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Kicked!')
     embed.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
-    code=embed
-    await user.send(f'{code}')
+    embedkick=embed
+    await user.send(f'{embedkick}')
     await user.kick(reason=reason)
     await ctx.send(str(user) + ' has succesfully been kicked for : ' + reason)
     
