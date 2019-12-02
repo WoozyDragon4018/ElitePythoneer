@@ -61,8 +61,7 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Kicked!')
     embed.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
-    embedkick=embed
-    await user.send(f'{embedkick}')
+    await user.send(embed=embed)
     await user.kick(reason=reason)
     await ctx.send(str(user) + ' has succesfully been kicked for : ' + reason)
     
