@@ -98,6 +98,7 @@ async def clear_error(ctx, error):
         embed.add_field(name='Couldn\'t clear messages', value='Please pass in a amount to clear the messages!', inline=False)
         await ctx.send(embed=embed)
 
+@commands.has_role("Staff")
 @bot.command(pass_context=True)
 async def warn(ctx, user: discord.User, *, reason=None):
     await ctx.channel.purge(limit=1)
