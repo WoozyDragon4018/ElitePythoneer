@@ -80,7 +80,7 @@ async def d(ctx, numi, numii):
     await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
 
 @bot.command(pass_context = True)
-async def clear(ctx,amount):
+async def clear(ctx,amount:int=0):
     if ctx.author.guild_permissions.manage_messages:
         await ctx.channel.purge(limit=amount+1)
         await ctx.send(f"{amount} message has been deleted."if(int(amount)is 1)else(f"{amount} messages have been deleted."),delete_after=5)
