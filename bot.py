@@ -52,12 +52,12 @@ async def warn(ctx, user: discord.User, *, reason=None):
     await ctx.send(str(user) + ' has succesfully been warned for ' + reason)
     
 @bot.command(pass_context=True)
-async def kick(ctx, member : discord.Member, *, reason=None):
-    await member.kick(reason=reason)
+async def kick(ctx, user : discord.User, *, reason=None):
+    await user.kick(reason=reason)
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Kicked!')
     embed.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
-    await member.send(embed=embed)
+    await user.send(embed=embed)
     await ctx.send(str(member) + ' has succesfully been kicked for ' + reason)    
 
 bot.run(os.getenv('token'))
