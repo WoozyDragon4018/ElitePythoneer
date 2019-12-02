@@ -29,8 +29,33 @@ async def on_member_join(member):
 async def help(ctx):
     embed=discord.Embed(color=0xFFFF)
     embed.set_author(name='PyBot Help')
-    embed.add_field(name='No help added!', value='Bot is refreshed', inline=False)
+    embed.add_field(name='?modhelp', value='Help for Moderator Commands', inline=False)
     await ctx.send(embed=embed)
+
+#Calculator!
+#Addition...
+@bot.command
+async def a(ctx, numi, numii):
+    sum_value = int(numi) + int(numii)
+    await ctx.send(str(numi) + ' + ' + str(numii) + ' = ' + str(sum_value))
+
+#Multiplication
+@bot.command
+async def m(ctx, numi, numii):
+    sum_value = int(numi) * int(numii)
+    await ctx.send(str(numi) + ' x ' + str(numii) + ' = ' + str(sum_value))
+
+#Subtraction
+@bot.command
+async def s(ctx, numi, numii):
+    sum_value = int(numi) - int(numii)
+    await ctx.send(str(numi) + ' - ' + str(numii) + ' = ' + str(sum_value))
+
+#Division
+@bot.command
+async def d(ctx, numi, numii):
+    sum_value = int(numi) / int(numii)
+    await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
 
 @bot.command(pass_context = True)
 async def purge(ctx,amount:int=10):
