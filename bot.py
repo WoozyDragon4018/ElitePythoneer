@@ -36,7 +36,7 @@ async def help(ctx):
 async def purge(ctx,amount:int=10):
     if ctx.author.guild_permissions.manage_messages:
         await ctx.channel.purge(limit=amount+1)
-        await ctx.send(f"<:clear:613146626558525495> {amount} message has been deleted."if(int(amount)is 1)else(f"<:clear:613146626558525495> {amount} messages have been deleted."),delete_after=5)
+        await ctx.send(f"{amount} message has been deleted."if(int(amount)is 1)else(f"{amount} messages have been deleted."),delete_after=5)
         embed = discord.Embed(color=0xFFFFFF)
         embed.set_author(name='Mod Command Used!')
         embed.add_field(name='Purge Command used', value=f'{ctx.author} has used `purge` command.')
@@ -50,5 +50,16 @@ async def warn(ctx, user: discord.User, *, reason=None):
     embed.add_field(name='You were warned in Elite Programmers group for :', value=reason, inline=False)
     await user.send(embed=embed)
     await ctx.send(str(user) + ' has succesfully been warned for ' + reason)
+    
+@bot.command(pass_context=True)
+async def kick(ctx, member : discord.Member, *, reason=None):
+    await member.kick(reason=reason)
+    embed = discord.Embed(color=0xFFFF)
+    embed.set_author(name='Kicked!')
+    embed.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
+    await member.send(embed=embed)
+    await ctx.send(str(member) + ' has succesfully been kicked for ' + reason)
+    await member.send(
+    
 
 bot.run(os.getenv('token'))
