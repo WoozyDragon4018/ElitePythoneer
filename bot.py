@@ -3,8 +3,7 @@ from discord.ext import commands
 import os
 import random
 from discord.utils import get
-import asyncio
-from itertools import cycle
+
 
 def get_prefix(bot, msg):
     prefixes = ['?']
@@ -13,27 +12,6 @@ def get_prefix(bot, msg):
 
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
-
-
-async def picker():
-    ser_watch=['Space Shuttle']
-    ser_listen=['Vaccum in Space']
-    ser_play=['Train Simulator 2019']
-    helps=['?help | Help for PyBot!']
-
-    while True:
-        
-            num = random.choice([1, 2, 3, 4])
-            if num == 1:
-                await bot.change_presence(activity=discord.Game(ser_play)
-            if num == 2:
-                await bot.change_presence(activity=discord.Game(ser_watch)
-            if num == 3:
-                await bot.change_presence(activity=discord.Game(ser_listen)
-            if num == 4:
-                await bot.change_presence(activity=discord.Game(helps))
-            await asyncio.sleep(3)
-
 
 @bot.event
 async def on_ready():
@@ -57,6 +35,7 @@ async def help(ctx):
     embed.add_field(name='?modhelp', value='Help for Moderator Commands', inline=False)
     embed.add_field(name='?calchelp', value='Help for Calculator Commands', inline=False)
     embed.add_field(name='?pms', value='PyBot Messaging Service (PMS) [?pms @<user.mention> <your_message_here>]', inline=False)
+    embed.add_field(name='?coinflip', value='Flips a coin for you', inline=False)
     embed.set_footer(text='PyBot v0.5')
     await ctx.send(embed=embed)
 
@@ -106,6 +85,7 @@ async def d(ctx, numi, numii):
     sum_value = int(numi) / int(numii)
     await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
 
+@commands.has_role("Staff")
 @bot.command(pass_context = True)
 async def clear(ctx,amount:int=0):
     if ctx.author.guild_permissions.manage_messages:
@@ -116,6 +96,15 @@ async def clear(ctx,amount:int=0):
         embed.set_author(name='Mod Command Used!')
         embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command.')
         await channel.send(embed=embed)
+
+@bot.command(pass_context=True)
+async def coinflip(ctx):
+    flip = [
+        'You got **heads**',
+        'You got **tails**'
+    ]
+
+    await ctx.send(random.choice(flip))
 
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
@@ -196,5 +185,5 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
 
-bot.loop.create_task(picker())
+
 bot.run(os.getenv('token'))
