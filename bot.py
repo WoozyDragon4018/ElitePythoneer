@@ -14,9 +14,7 @@ def get_prefix(bot, msg):
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
 
-status = cycle(['PyBot v1.0!', 'with WoozyDragon'])
-status2 = cycle(['Space Shuttle', 'ISRO', 'PyBot v1.0!'])
-status3 = cycle(['Speed of Light', 'PyBot v1.0!', 'Human Legacy by Ivan Torrent'])
+status = cycle(['PyBot v1.0!', 'with WoozyDragon', 'VLC Media Player', 'Ludo', 'Snakes and Ladders', 'Space Shuttle', 'ISRO', 'Human Legacy by Ivan Torrent'])
 
 @bot.event
 async def on_ready():
@@ -27,7 +25,7 @@ async def on_ready():
 async def change_status():
     activity=discord.Game(next(status))
 
-    await bot.change_presence(random.choice(activity=discord.Game(next(status)), activity=discord.Watching(next(status2)), activity=discord.Listening(next(status3))))
+    await bot.change_presence(random.choice(activity=discord.Game(next(status))))
 
 @bot.event
 async def on_member_join(member):
