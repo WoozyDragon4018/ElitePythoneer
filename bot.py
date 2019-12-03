@@ -36,6 +36,7 @@ async def help(ctx):
     embed.add_field(name='?calchelp', value='Help for Calculator Commands', inline=False)
     embed.add_field(name='?pms', value='PyBot Messaging Service (PMS) [?pms @<user.mention> <your_message_here>]', inline=False)
     embed.add_field(name='?coinflip', value='Flips a coin for you', inline=False)
+    embed.add_field(name='?diceroll', value='Rolls a dice', inline=False)
     embed.set_footer(text='PyBot v0.5')
     await ctx.send(embed=embed)
 
@@ -106,6 +107,14 @@ async def coinflip(ctx):
 
     await ctx.send(random.choice(flip))
 
+@bot.command(pass_context=True)
+async def diceroll(ctx):
+    roll = [
+    '1','2','3','4','5','6'
+    ]
+
+    await ctx.send(random.choice(roll))
+
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
 async def warn(ctx, user: discord.User, *, reason=None):
@@ -131,8 +140,8 @@ async def pms(ctx, user: discord.User, *, message=None):
     embed.set_footer(text='PyBot Messaging Service (PMS)')
     await user.send(embed=embed)
     await ctx.send(f'{ctx.author.mention}, Succesfully sent your message to ' + str(user) + ' which says : ' + str(message))
- 
-    
+
+
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
 async def kick(ctx, user:discord.Member, *, reason=None):
@@ -148,7 +157,7 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     embed.add_field(name='Kick Command used', value=f'{ctx.author} has kicked ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
-        
+
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
 async def ban(ctx, user:discord.Member, *, reason=None):
@@ -172,7 +181,7 @@ async def on_command_error(ctx, error):
         embed.set_author(name='Error!')
         embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
         await ctx.send(embed=embed)
-        
+
     if isinstance(error, commands.CheckFailure):
         embed = discord.Embed(color=0xff0000)
         embed.set_author(name='Error!')
