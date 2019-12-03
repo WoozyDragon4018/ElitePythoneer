@@ -7,7 +7,8 @@ from discord.utils import get
 from itertools import cycle
 
 extension_file = "extensions.json"
-extensions = json.load(extension_file)["extensions"]
+with open(extension_file) as file:
+    extensions = json.load(extension_file)["extensions"]
 
 
 def get_prefix(bot, msg):
