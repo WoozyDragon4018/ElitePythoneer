@@ -225,5 +225,5 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
 
-bot.loop.create_task(update_stats())
+bot.loop.create_task(change_status())
 bot.run(os.getenv('token'))
