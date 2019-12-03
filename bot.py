@@ -1,8 +1,9 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 import os
 import random
 from discord.utils import get
+from itertools import cycle
 
 
 def get_prefix(bot, msg):
@@ -13,10 +14,16 @@ def get_prefix(bot, msg):
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
 
+status = cycle(['PyBot v1.0!', 'with WoozyDragon'])
+
 @bot.event
 async def on_ready():
+    change_status.start()
     print("Bot is ready for action")
 
+@tasks.loop(seconds=5)
+async def change_status():
+    await bot.change_presence(activity=discord.Game(next(status)))
 
 @bot.event
 async def on_member_join(member):
@@ -110,7 +117,7 @@ async def coinflip(ctx):
 @bot.command(pass_context=True)
 async def diceroll(ctx):
     roll = [
-    '1','2','3','4','5','6'
+        '1','2','3','4','5','6'
     ]
 
     await ctx.send(random.choice(roll))
