@@ -169,8 +169,8 @@ async def kick(ctx, user:discord.Member, *, reason=None):
 @bot.command(pass_context=True)
 async def ban(ctx, user:discord.Member, *, reason=None):
     embeda = discord.Embed(color=0xFFFF)
-    embeda.set_author(name='Kicked!')
-    embeda.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
+    embeda.set_author(name='Banned!')
+    embeda.add_field(name='You were Banned from Elite Programmers Group for :', value=reason, inline=False)
     await user.send(embed=embeda)
     await user.ban(reason=reason)
     await ctx.send(str(user) + ' has succesfully been banned for : ' + reason)
