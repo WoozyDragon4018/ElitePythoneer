@@ -23,9 +23,7 @@ async def on_ready():
 
 @tasks.loop(seconds=5)
 async def change_status():
-    activity=discord.Game(next(status))
-
-    await bot.change_presence(random.choice(activity=discord.Game(next(status))))
+    await bot.change_presence(activity=discord.Game(next(status)))
 
 @bot.event
 async def on_member_join(member):
