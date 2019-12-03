@@ -13,10 +13,6 @@ def get_prefix(bot, msg):
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
 
-@bot.event
-async def on_ready():
-    print("Bot is ready for action")
-
 statusmsg = ['PyBot v0.5','Visual Studio Code','what you\'re playing','Train Simulator 2014']
 
 async def change_status():
@@ -27,6 +23,10 @@ async def change_status():
         current_status = next(messages)
         await bot.change_presence(game=discord.Game(name=current_status))
         await asyncio.sleep(4)
+
+@bot.event
+async def on_ready():
+    print("Bot is ready for action")
 
 
 @bot.event
