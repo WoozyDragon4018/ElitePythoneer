@@ -2,8 +2,12 @@ import discord
 from discord.ext import commands, tasks
 import os
 import random
+import json
 from discord.utils import get
 from itertools import cycle
+
+extension_file = "extensions.json"
+extensions = json.load(extension_file)["extensions"]
 
 
 def get_prefix(bot, msg):
@@ -201,5 +205,12 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
 
+if len(extensions) > 0:
+    for ext in extensions:
+        try:
+            bot.load_extension(ext)
+            print(f"Extension {ext} loaded successfully")
+        except Exception:
+            print(f"Extension {ext} failed to load")
 
 bot.run(os.getenv('token'))
