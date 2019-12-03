@@ -21,7 +21,7 @@ bot.remove_command('help')
 
 status = cycle(['PyBot v1.0!', 'with WoozyDragon', 'VLC Media Player', 'Ludo', 'Snakes and Ladders', 'Space Shuttle', 'ISRO', 'Human Legacy by Ivan Torrent'])
 
-@bot.event
+@bot.listen()
 async def on_ready():
     change_status.start()
     print("Bot is ready for action")
@@ -30,7 +30,7 @@ async def on_ready():
 async def change_status():
     await bot.change_presence(activity=discord.Game(next(status)))
 
-@bot.event
+@bot.listen()
 async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, name='Member')
     await member.add_roles(role)
@@ -40,7 +40,7 @@ async def on_member_join(member):
     embed.add_field(name=f'New member!', value=f'{member} has joined this server!', inline=False)
     await channel.send(embed=embed)
 
-@bot.command(pass_context = True)
+@bot.command()
 async def help(ctx):
     embed=discord.Embed(color=0xFFFF)
     embed.set_author(name='PyBot Help')
@@ -52,7 +52,7 @@ async def help(ctx):
     embed.set_footer(text='PyBot v1')
     await ctx.send(embed=embed)
 
-@bot.command(pass_context = True)
+@bot.command()
 async def calchelp(ctx):
     embed=discord.Embed(color=0x00ff00)
     embed.set_author(name='PyBot Calculator Help')
@@ -63,7 +63,7 @@ async def calchelp(ctx):
     await ctx.send(embed=embed)
 
 @commands.has_role("Staff")
-@bot.command(pass_context = True)
+@bot.command()
 async def modhelp(ctx):
     embed=discord.Embed(color=0x0000ff)
     embed.set_author(name='PyBot Moderation Help')
@@ -99,7 +99,7 @@ async def d(ctx, numi, numii):
     await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
 
 @commands.has_role("Staff")
-@bot.command(pass_context = True)
+@bot.command()
 async def clear(ctx,amount:int=0):
     if ctx.author.guild_permissions.manage_messages:
         await ctx.channel.purge(limit=amount+1)
@@ -110,7 +110,7 @@ async def clear(ctx,amount:int=0):
         embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command.')
         await channel.send(embed=embed)
 
-@bot.command(pass_context=True)
+@bot.command()
 async def coinflip(ctx):
     flip = [
         'You got **heads**',
@@ -119,7 +119,7 @@ async def coinflip(ctx):
 
     await ctx.send(random.choice(flip))
 
-@bot.command(pass_context=True)
+@bot.command()
 async def diceroll(ctx):
     roll = [
         '1','2','3','4','5','6'
@@ -128,7 +128,7 @@ async def diceroll(ctx):
     await ctx.send(random.choice(roll))
 
 @commands.has_role("Staff")
-@bot.command(pass_context=True)
+@bot.command()
 async def warn(ctx, user: discord.User, *, reason=None):
     await ctx.channel.purge(limit=1)
     embeda = discord.Embed(color=0xFFFF)
@@ -155,7 +155,7 @@ async def pms(ctx, user: discord.User, *, message=None):
 
 
 @commands.has_role("Staff")
-@bot.command(pass_context=True)
+@bot.command()
 async def kick(ctx, user:discord.Member, *, reason=None):
     embeda = discord.Embed(color=0xFFFF)
     embeda.set_author(name='Kicked!')
@@ -171,7 +171,7 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     await channel.send(embed=embed)
 
 @commands.has_role("Staff")
-@bot.command(pass_context=True)
+@bot.command()
 async def ban(ctx, user:discord.Member, *, reason=None):
     embeda = discord.Embed(color=0xFFFF)
     embeda.set_author(name='Banned!')
@@ -186,7 +186,7 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
 
-@bot.event
+@bot.listen()
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         embed = discord.Embed(color=0xff0000)
@@ -205,6 +205,7 @@ async def on_command_error(ctx, error):
         embed.set_author(name='Error!')
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
+
 
 if len(extensions) > 0:
     for ext in extensions:
