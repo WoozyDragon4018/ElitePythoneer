@@ -31,7 +31,7 @@ async def help(ctx):
     embed.set_author(name='PyBot Help')
     embed.add_field(name='?modhelp', value='Help for Moderator Commands', inline=False)
     embed.add_field(name='?calchelp', value='Help for Calculator Commands', inline=False)
-    embed.add_field(name-'?pms', value='PyBot Messaging Service (PMS) [?pms @<user.mention> <your_message_here>]', inline=False)
+    embed.add_field(name='?pms', value='PyBot Messaging Service (PMS) [?pms @<user.mention> <your_message_here>]', inline=False)
     embed.set_footer(text='PyBot v0.5')
     await ctx.send(embed=embed)
 
@@ -114,7 +114,7 @@ async def pms(ctx, user: discord.User, *, message=None):
     embed.set_author(name='You got Mail!')
     embed.add_field(name='Message contents :-', value=message, inline=False)
     embed.add_field(name='Sender :-', value=f'{ctx.author.mention}', inline=False)
-    embed.set_footer(text='PyBot Message Service (PMS)')
+    embed.set_footer(text='PyBot Messaging Service (PMS)')
     await user.send(embed=embed)
     await ctx.send(f'{ctx.author.mention}, Succesfully sent your message to ' + str(user) + ' which says : ' + str(message))
  
@@ -159,7 +159,7 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
         await ctx.send(embed=embed)
 
-    if isinstance(error, commands.MissingPermissions):
+    if isinstance(error, commands.CheckFailure):
         embed = discord.Embed(color=0xff0000)
         embed.set_author(name='Error!')
         embed.add_field(name='Permissions', value='You don\'t have the permissions to run this command!', inline=False)
