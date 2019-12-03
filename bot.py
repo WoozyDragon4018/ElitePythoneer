@@ -91,14 +91,6 @@ async def clear(ctx,amount:int=0):
         embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command.')
         await channel.send(embed=embed)
 
-@clear.error
-async def clear_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        embed = discord.Embed(color=0xff0000)
-        embed.set_author(name='Error!')
-        embed.add_field(name='Couldn\'t clear messages', value='Please pass in a amount to clear the messages!', inline=False)
-        await ctx.send(embed=embed)
-
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
 async def warn(ctx, user: discord.User, *, reason=None):
@@ -148,6 +140,21 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
 
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        embed = discord.Embed(color=0xff0000)
+        embed.set_author(name='Error!')
+        embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
+        await ctx.send(embed=embed)
+        
+@bot.event
+async def on_command_error(ctx,error):
+    if isinstance(error, commands.MissingPermissions):
+        embed = discord.Embed(color=0xff0000)
+        embed.set_author(name='Error!')
+        embed.add_field(name='Permissions', value='You don\'t have the permissions to run this command!', inline=False)
+        await ctx.send(embed=embed)
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -157,21 +164,9 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
 
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandNotFound):
-        embed = discord.Embed(color=0xff0000)
-        embed.set_author(name='Error!')
-        embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
-        await ctx.send(embed=embed)
 
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        embed = discord.Embed(color=0xff0000)
-        embed.set_author(name='Error!')
-        embed.add_field(name='Permissions', value='You don\'t have the permissions to run this command!', inline=False)
-        await ctx.send(embed=embed)
+
+
 
 
 
