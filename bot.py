@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import os
+import random
 from discord.utils import get
 import asyncio
 from itertools import cycle
@@ -13,16 +14,55 @@ def get_prefix(bot, msg):
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
 
-statusmsg = ['PyBot v0.5','Visual Studio Code','what you\'re playing','Train Simulator 2014']
+messages = joined = 0
 
-async def change_status():
-    await bot.wait_until_ready()
-    messages = cycle(statusmsg)
+#
+#
+#
 
-    while not bot.is_closed:
-        current_status = next(messages)
-        await bot.change_presence(game=discord.Game(name=current_status))
-        await asyncio.sleep(4)
+evn=bot.event
+cms=bot.command()
+
+async def picker():
+    mem_watching=['{} members']
+    mem_watching=['ISRO']
+    mem_listening=['{} members']
+    mem_playing=['SpaceFlight Simulator']
+
+    ser_watch=['Space Shuttle']
+    ser_listen=['Vaccum in Space']
+    ser_play=['Train Simulator 2019']
+    helps=['?help | Help for PyBot!']
+
+    while True:
+        kind=random.randint(1,2)
+        if kind == 1:
+            members=0
+            for i in bot.guilds:
+                members+=len(i.members)
+            num = random.choice([1, 2, 3])
+            if num == 1:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name=random.choice(mem_playing).format(members)))
+            if num == 2:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name=random.choice(mem_listening).format(members)))
+            if num == 3:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(mem_watching).format(members)))
+            await asyncio.sleep(random.choice([ 10, 10, 10,  10, 10]))
+       
+        
+        if kind == 2:
+            num = random.choice([1, 2, 3])
+            if num == 1:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name=random.choice(ser_play).format(len(bot.guilds))))
+            if num == 2:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name=random.choice(ser_listen).format(len(bot.guilds))))
+            if num == 3:
+                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(ser_watch).format(len(bot.guilds))))
+            await asyncio.sleep(random.choice([10, 10, 10, 10, 10, 10]))
+
+        if kind == 3:
+            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(ser_watch).format(len(bot.guilds))))
+            await asyncio.sleep(random.choice([10, 10, 10, 10, 10, 10]))
 
 @bot.event
 async def on_ready():
@@ -185,5 +225,5 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
 
-bot.loop.create_task(change_status())
+bot.loop.create_task(update_stats())
 bot.run(os.getenv('token'))
