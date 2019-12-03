@@ -31,6 +31,7 @@ async def help(ctx):
     embed.set_author(name='PyBot Help')
     embed.add_field(name='?modhelp', value='Help for Moderator Commands', inline=False)
     embed.add_field(name='?calchelp', value='Help for Calculator Commands', inline=False)
+    embed.set_footer(text='PyBot v0.5')
     await ctx.send(embed=embed)
 
 @bot.command(pass_context = True)
@@ -113,10 +114,7 @@ async def warn(ctx, user: discord.User, *, reason=None):
     embed.add_field(name='Warn Command used', value=f'{ctx.author} has warned ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
-    
-@bot.event
-async def on_message(message):
-    await bot.process_commands(message)  
+ 
     
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
@@ -150,8 +148,7 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
 
-#Note to Self : Use ff0000 as the hex for red color.
-#embed = discord.Embed(color=0xff0000)
+
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArguments):
