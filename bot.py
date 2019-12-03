@@ -24,31 +24,13 @@ evn=bot.event
 cms=bot.command()
 
 async def picker():
-    mem_watching=['{} members']
-    mem_watching=['ISRO']
-    mem_listening=['{} members']
-    mem_playing=['SpaceFlight Simulator']
-
     ser_watch=['Space Shuttle']
     ser_listen=['Vaccum in Space']
     ser_play=['Train Simulator 2019']
     helps=['?help | Help for PyBot!']
 
     while True:
-        kind=random.randint(1,2)
-        if kind == 1:
-            members=0
-            for i in bot.guilds:
-                members+=len(i.members)
-            num = random.choice([1, 2, 3])
-            if num == 1:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name=random.choice(mem_playing).format(members)))
-            if num == 2:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name=random.choice(mem_listening).format(members)))
-            if num == 3:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(mem_watching).format(members)))
-            await asyncio.sleep(random.choice([ 10, 10, 10,  10, 10]))
-       
+        kind=int(2)      
         
         if kind == 2:
             num = random.choice([1, 2, 3])
@@ -60,9 +42,6 @@ async def picker():
                 await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(ser_watch).format(len(bot.guilds))))
             await asyncio.sleep(random.choice([10, 10, 10, 10, 10, 10]))
 
-        if kind == 3:
-            await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(ser_watch).format(len(bot.guilds))))
-            await asyncio.sleep(random.choice([10, 10, 10, 10, 10, 10]))
 
 @bot.event
 async def on_ready():
