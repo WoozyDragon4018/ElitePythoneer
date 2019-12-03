@@ -14,14 +14,6 @@ def get_prefix(bot, msg):
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
 
-messages = joined = 0
-
-#
-#
-#
-
-evn=bot.event
-cms=bot.command()
 
 async def picker():
     ser_watch=['Space Shuttle']
@@ -30,17 +22,17 @@ async def picker():
     helps=['?help | Help for PyBot!']
 
     while True:
-        kind=int(2)      
         
-        if kind == 2:
-            num = random.choice([1, 2, 3])
+            num = random.choice([1, 2, 3, 4])
             if num == 1:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.playing,name=random.choice(ser_play).format(len(bot.guilds))))
+                await bot.change_presence(activity=discord.Game(ser_play)
             if num == 2:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening,name=random.choice(ser_listen).format(len(bot.guilds))))
+                await bot.change_presence(activity=discord.Game(ser_watch)
             if num == 3:
-                await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching,name=random.choice(ser_watch).format(len(bot.guilds))))
-            await asyncio.sleep(random.choice([10, 10, 10, 10, 10, 10]))
+                await bot.change_presence(activity=discord.Game(ser_listen)
+            if num == 4:
+                await bot.change_presence(activity=discord.Game(helps))
+            await asyncio.sleep(3)
 
 
 @bot.event
