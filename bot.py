@@ -2,6 +2,8 @@ import discord
 from discord.ext import commands
 import os
 from discord.utils import get
+import asyncio
+from itertools import cycle
 
 def get_prefix(bot, msg):
     prefixes = ['?']
@@ -13,7 +15,19 @@ bot.remove_command('help')
 
 @bot.event
 async def on_ready():
-    print("{} has successfully booted and running!".format(bot.user.name))
+    print("Bot is ready for action")
+
+statusmsg = ['PyBot v0.5','Visual Studio Code','what you\'re playing','Train Simulator 2014']
+
+async def change_status():
+    await bot.wait_until_ready()
+    messages = cycle(statusmsg)
+
+    while not bot.is_closed:
+        current_status = next(messages)
+        await bot.change_presence(game=discord.Game(name=current_status))
+        await asyncio.sleep(4)
+
 
 @bot.event
 async def on_member_join(member):
@@ -158,7 +172,7 @@ async def on_command_error(ctx, error):
         embed.set_author(name='Error!')
         embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
         await ctx.send(embed=embed)
-
+        
     if isinstance(error, commands.CheckFailure):
         embed = discord.Embed(color=0xff0000)
         embed.set_author(name='Error!')
@@ -171,10 +185,5 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
         await ctx.send(embed=embed)
 
-
-
-
-
-
-
+bot.loop.create_task(change_status())
 bot.run(os.getenv('token'))
