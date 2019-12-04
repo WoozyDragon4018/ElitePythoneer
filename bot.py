@@ -148,6 +148,14 @@ async def pms(ctx, user: discord.User, *, message=None):
     await user.send(embed=embed)
     await ctx.send(f'{ctx.author.mention}, Succesfully sent your message to ' + str(user) + ' which says : ' + str(message))
 
+@bot.command(pass_context = True)
+async def suggest(ctx, *, suggest=None):
+    channel = bot.get_channel(648929055151882241)
+    embed = discord.Embed(color=0xffff00)
+    embed.set_author(name=f'{ctx.author}')
+    embed.add_field(name='Suggestion:', value=suggest, inline=False)
+    embed.set_footer(text='PyBot Suggestions')
+    await channel.send(embed=embed)
 
 @commands.has_role("Staff")
 @bot.command(pass_context=True)
