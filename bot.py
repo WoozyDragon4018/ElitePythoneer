@@ -209,11 +209,6 @@ async def on_command_error(ctx, error):
         embed.add_field(name='Permissions', value='You don\'t have the permissions to run this command!', inline=False)
         await ctx.send(embed=embed)
 
-    if isinstance(error, commands.MissingRequiredArguments):
-        embed = discord.Embed(color=0xff0000)
-        embed.set_author(name='Error!')
-        embed.add_field(name='Arguments required!', value='Please pass in all required arguments!', inline=False)
-        await ctx.send(embed=embed)
 
 
 if len(extensions) > 0:
