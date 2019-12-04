@@ -44,6 +44,7 @@ async def help(ctx):
     embed.add_field(name='?pms', value='PyBot Messaging Service (PMS) [?pms @<user.mention> <your_message_here>]', inline=False)
     embed.add_field(name='?coinflip', value='Flips a coin for you', inline=False)
     embed.add_field(name='?diceroll', value='Rolls a dice', inline=False)
+    embed.add_field(name='?suggest', value='Suggest for the server [?suggest <suggestion>]', inline=False)
     embed.set_footer(text='PyBot v1')
     await ctx.send(embed=embed)
 
