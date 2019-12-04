@@ -8,7 +8,7 @@ from itertools import cycle
 
 extension_file = "extensions.json"
 with open(extension_file) as file:
-    extensions = json.load(extension_file)["extensions"]
+    extensions = json.load(file)["extensions"]
 
 
 def get_prefix(bot, msg):
