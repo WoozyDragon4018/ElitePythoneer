@@ -83,7 +83,7 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     embed.add_field(name='You were muted in Elite Programmers Group for : ', value=reason, inline=False)
     await user.send(embed=embed)
     role = discord.utils.get(member.guild.roles, name='Muted')
-    await user.add_roles(role)
+    await member.add_roles(role)
     await ctx.send(str(user) + f' has been muted by {ctx.author}')
 
 
