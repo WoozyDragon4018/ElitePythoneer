@@ -91,7 +91,7 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     embeda = discord.Embed(color=0xFFFFFF)
     embeda.set_author(name='Mod Command Used!')
     embeda.add_field(name='Mute Command Used', value=f'{ctx.author.mention} has used `MUTE` command to mute ' + str(user))
-    embeda.add_field(name='Reason:', value=reason), inline=False
+    embeda.add_field(name='Reason:', value=reason, inline=False)
     await channel.send(embed=embeda)
 
 
