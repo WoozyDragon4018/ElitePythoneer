@@ -62,6 +62,7 @@ async def calchelp(ctx):
     embed.add_field(name='?s', value='Subtraction [?s 15 13]', inline=False)
     embed.add_field(name='?m', value='Multiplication [?m 15 13]', inline=False)
     embed.add_field(name='?d', value='Division [?d 15 13]', inline=False)
+    embed.add_field(name='?sq', value='Squared Number [?sq 15]', inline=False)
     await ctx.send(embed=embed)
 
 @commands.has_role("Staff")
@@ -69,10 +70,11 @@ async def calchelp(ctx):
 async def modhelp(ctx):
     embed=discord.Embed(color=0x0000ff)
     embed.set_author(name='PyBot Moderation Help')
-    embed.add_field(name='?purge', value='Mass deletes messages [?purge 11]', inline=False)
+    embed.add_field(name='?clear', value='Mass deletes messages [?clear 11]', inline=False)
     embed.add_field(name='?warn', value='Warns the mentioned user [?warn @<user> <reason>]', inline=False)
     embed.add_field(name='?kick', value='Kicks the mentioned user [?kick @<user> <reason>]', inline=False)
     embed.add_field(name='?ban', value='Bans the mentioned user [?ban @<user> <reason>]', inline=False)
+    embed.add_field(name='?mute', value='Mutes the mentioned user [?mute @<user> <reason>]', inline=False)
     await ctx.send(embed=embed)
 
 @commands.has_role("Staff")
@@ -85,6 +87,11 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     embed.add_field(name='You were muted in Elite Programmers Group for : ', value=reason, inline=False)
     await user.send(embed=embed)
     await ctx.send(str(user) + f' has been muted by {ctx.author}')
+    channel = bot.get_channel(650348478056235014)
+    embeda = discord.Embed(color=0xFFFFFF)
+    embeda.set_author(name='Mod Command Used!')
+    embeda.add_field(name='Mute Command Used', value=f'{ctx.author.mention} has used `MUTE` command')
+    await channel.send(embed=embeda)
 
 
 #Calculator!
@@ -111,6 +118,12 @@ async def s(ctx, numi, numii):
 async def d(ctx, numi, numii):
     sum_value = int(numi) / int(numii)
     await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
+
+#Squared Numbers
+@bot.command()
+async def sq(ctx, num):
+    squared_value = int(num) * int(num)
+    await ctx.send(str(num) + ' squared is ' + str(squared_value))
 
 @commands.has_role("Staff")
 @bot.command()
