@@ -73,33 +73,18 @@ async def modhelp(ctx):
     embed.add_field(name='?warn', value='Warns the mentioned user [?warn @<user> <reason>]', inline=False)
     embed.add_field(name='?kick', value='Kicks the mentioned user [?kick @<user> <reason>]', inline=False)
     embed.add_field(name='?ban', value='Bans the mentioned user [?ban @<user> <reason>]', inline=False)
-    embed.add_field(name='?announce', value='Used for announcing something', inline=False)
     await ctx.send(embed=embed)
-
-def check(ctx):
-    return lambda m: m.author == ctx.author and m.channel == ctx.channel
-
-async def get_input_of_type(func, ctx):
-    while True:
-        try:
-            msg = await bot.wait_for('message', check=check(ctx))
-            return func(msg.content)
-        except ValueError:
-            continue
 
 @commands.has_role("Staff")
 @bot.command()
-async def announce(ctx):
-    await ctx.send("What do you want for the title?")
-    val = await get_input_of_type(ctx, *, title=None)
-    await ctx.send("What do you want to announce?")
-    val2 = await get_input_of_type(ctx, *, announce=None)
-    channel = bot.get_channel(649295641960251418)
-    embed = discord.Embed(color=0x00ff00)
-    embed.set_author(name=val)
-    embed.add_field(name='Announcement!', value=val2, inline=False)
-    embed.add_footer(text=f'Announced by {ctx.author}')
-    await channel.send(embed=embed)
+async def mute(ctx, user:discord.Member, *, reason=None):
+    embed = discord.Embed(color=0xFFFF)
+    embed.set_author('Muted!')
+    embed.add_field(name='You were muted in Elite Programmers Group for : ', value=reason, inline=False)
+    await user.send(embed=embed)
+    role = discord.utils.get(member.guild.roles, name='Muted')
+    await user.add_roles(role)
+    await ctx.send(str(user) + f' has been muted by {ctx.author}')
 
 
 #Calculator!
