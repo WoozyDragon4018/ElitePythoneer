@@ -76,6 +76,17 @@ async def modhelp(ctx):
     embed.add_field(name='?announce', value='Used for announcing something', inline=False)
     await ctx.send(embed=embed)
 
+def check(ctx):
+    return lambda m: m.author == ctx.author and m.channel == ctx.channel
+
+async def get_input_of_type(func, ctx):
+    while True:
+        try:
+            msg = await bot.wait_for('message', check=check(ctx))
+            return func(msg.content)
+        except ValueError:
+            continue
+
 @commands.has_role("Staff")
 @bot.command()
 async def announce(ctx):
