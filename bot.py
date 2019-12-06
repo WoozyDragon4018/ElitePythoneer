@@ -76,7 +76,7 @@ async def modhelp(ctx):
     await ctx.send(embed=embed)
 
 @commands.has_role("Staff")
-@bot.command()
+@bot.command(pass_context = True)
 async def mute(ctx, user:discord.Member, *, reason=None):
     embed = discord.Embed(color=0xFFFF)
     embed.set_author('Muted!')
