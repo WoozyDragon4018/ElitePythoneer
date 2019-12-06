@@ -81,7 +81,9 @@ async def modhelp(ctx):
 @bot.command()
 async def mute(ctx, user:discord.Member, *, reason=None):
     role = discord.utils.get(ctx.guild.roles, name="Muted")
+    rolerem = discord.utils.get(ctx.guild.roles, name="Member")
     await user.add_roles(role)
+    await user.remove_roles(rolerem)
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Muted!')
     embed.add_field(name='You were muted in Elite Programmers Group for : ', value=reason, inline=False)
