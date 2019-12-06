@@ -74,7 +74,6 @@ async def modhelp(ctx):
     embed.add_field(name='?ban', value='Bans the mentioned user [?ban @<user> <reason>]', inline=False)
     await ctx.send(embed=embed)
 
-?bot.comm
 
 #Calculator!
 #Addition...
