@@ -74,6 +74,8 @@ async def modhelp(ctx):
     embed.add_field(name='?ban', value='Bans the mentioned user [?ban @<user> <reason>]', inline=False)
     await ctx.send(embed=embed)
 
+?bot.comm
+
 #Calculator!
 #Addition...
 @bot.command()
@@ -162,6 +164,15 @@ async def suggest(ctx, *, suggest=None):
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
     await channel.send(embed=embed)
+
+@bot.command()
+async def facts(ctx):
+    fact = [
+        'There are still some spacecraft operating on the 70s programs!',
+        'There are 698 different coding languages available! If it were a country, it\'d come in 3rd place, behind Indonesia(700)!!!',
+        'By far, Python is considered the EASIEST Language to learn, ever made!'
+    ]
+    await ctx.send(random.choice(fact))
 
 @commands.has_role("Staff")
 @bot.command()
