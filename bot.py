@@ -80,9 +80,9 @@ async def modhelp(ctx):
 @bot.command()
 async def announce(ctx):
     await ctx.send("What do you want for the title?")
-    titlea = await get_input_of_type(ctx, *, title=None)
+    await get_input_of_type(ctx, *, title=None)
     await ctx.send("What do you want to announce?")
-    announcement = await get_input_of_type(ctx, *, announce=None)
+    await get_input_of_type(ctx, *, announce=None)
     channel = bot.get_channel(649295641960251418)
     embed = discord.Embed(color=0x00ff00)
     embed.set_author(name=title)
