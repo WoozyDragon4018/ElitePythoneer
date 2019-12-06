@@ -91,13 +91,13 @@ async def get_input_of_type(func, ctx):
 @bot.command()
 async def announce(ctx):
     await ctx.send("What do you want for the title?")
-    await get_input_of_type(ctx, *, title=None)
+    val = await get_input_of_type(ctx, *, title=None)
     await ctx.send("What do you want to announce?")
-    await get_input_of_type(ctx, *, announce=None)
+    val2 = await get_input_of_type(ctx, *, announce=None)
     channel = bot.get_channel(649295641960251418)
     embed = discord.Embed(color=0x00ff00)
-    embed.set_author(name=title)
-    embed.add_field(name='Announcement!', value=announce, inline=False)
+    embed.set_author(name=val)
+    embed.add_field(name='Announcement!', value=val2, inline=False)
     embed.add_footer(text=f'Announced by {ctx.author}')
     await channel.send(embed=embed)
 
