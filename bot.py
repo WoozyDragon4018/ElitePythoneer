@@ -50,6 +50,7 @@ async def help(ctx):
     embed.add_field(name='?coinflip', value='Flips a coin for you', inline=False)
     embed.add_field(name='?diceroll', value='Rolls a dice', inline=False)
     embed.add_field(name='?suggest', value='Suggest for the server [?suggest <suggestion>]', inline=False)
+    embed.add_field(name='?facts', value='Shows some facts about coding', inline=False)
     embed.set_footer(text='PyBot v1')
     await ctx.send(embed=embed)
 
@@ -72,7 +73,22 @@ async def modhelp(ctx):
     embed.add_field(name='?warn', value='Warns the mentioned user [?warn @<user> <reason>]', inline=False)
     embed.add_field(name='?kick', value='Kicks the mentioned user [?kick @<user> <reason>]', inline=False)
     embed.add_field(name='?ban', value='Bans the mentioned user [?ban @<user> <reason>]', inline=False)
+    embed.add_field(name='?announce', value='Used for announcing something', inline=False)
     await ctx.send(embed=embed)
+
+@commands.has_role("Staff")
+@bot.command()
+async def announce(ctx):
+    await ctx.send("What do you want for the title?")
+    titlea = await get_input_of_type(ctx, *, title=None)
+    await ctx.send("What do you want to announce?")
+    announcement = await get_input_of_type(ctx, *, announce=None)
+    channel = bot.get_channel(649295641960251418)
+    embed = discord.Embed(color=0x00ff00)
+    embed.set_author(name=title)
+    embed.add_field(name='Announcement!', value=announce, inline=False)
+    embed.add_footer(text=f'Announced by {ctx.author}')
+    await channel.send(embed=embed)
 
 
 #Calculator!
