@@ -190,7 +190,7 @@ async def suggest(ctx, *, suggest=None):
     embed.set_author(name=f'{ctx.author}')
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
-    await channel.send(embed=embed)
+    msg = await channel.send(embed=embed)
     await msg.add_reaction(<:checkmark:653071400495743011>)
     await msg.add_reaction(<:crossmark:653071861244100618>)
 
