@@ -192,7 +192,8 @@ async def suggest(ctx, *, suggest=None):
     embed.set_footer(text='PyBot Suggestions')
     msg = await channel.send(embed=embed)
     reactions = ['checkmark']
-    for emoji in reactions: await bot.add_reaction(msg, emoji)
+    for emoji in reactions:
+        await bot.add_reaction(msg, emoji)
 
 @bot.command()
 async def facts(ctx):
