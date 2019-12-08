@@ -191,7 +191,7 @@ async def suggest(ctx, *, suggest=None):
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
     msg = await channel.send(embed=embed)
-    reactions = ['checkmark']
+    reactions = ['dart']
     for emoji in reactions:
         await bot.add_reaction(msg, emoji)
 
