@@ -41,21 +41,10 @@ async def on_member_join(member):
     await channel.send(embed=embed)
 
 @bot.command()
-async def help(ctx):
-    embed=discord.Embed(color=0xFFFF)
-    embed.set_author(name='PyBot Help')
-    embed.add_field(name='?modhelp', value='Help for Moderator Commands', inline=False)
-    embed.add_field(name='?calchelp', value='Help for Calculator Commands', inline=False)
-    embed.add_field(name='?pms', value='PyBot Messaging Service (PMS) [?pms @<user.mention> <your_message_here>]', inline=False)
-    embed.add_field(name='?coinflip', value='Flips a coin for you', inline=False)
-    embed.add_field(name='?diceroll', value='Rolls a dice', inline=False)
-    embed.add_field(name='?suggest', value='Suggest for the server [?suggest <suggestion>]', inline=False)
-    embed.add_field(name='?facts', value='Shows some facts about coding', inline=False)
-    embed.set_footer(text='PyBot v1')
-    await ctx.send(embed=embed)
-
-@bot.command()
 async def calchelp(ctx):
+    """
+    Displays help about some Calculator commands.
+    """
     embed=discord.Embed(color=0x00ff00)
     embed.set_author(name='PyBot Calculator Help')
     embed.add_field(name='?a', value='Addition [?a 11 12]', inline=False)
@@ -68,6 +57,9 @@ async def calchelp(ctx):
 @commands.has_role("Staff")
 @bot.command()
 async def modhelp(ctx):
+    """
+    Displays help about some Moderation Commands.
+    """
     embed=discord.Embed(color=0x0000ff)
     embed.set_author(name='PyBot Moderation Help')
     embed.add_field(name='?clear', value='Mass deletes messages [?clear 11]', inline=False)
@@ -80,6 +72,7 @@ async def modhelp(ctx):
 @commands.has_role("Staff")
 @bot.command()
 async def mute(ctx, user:discord.Member, *, reason=None):
+    """Mutes the Mentioned user"""
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     rolerem = discord.utils.get(ctx.guild.roles, name="Member")
     await user.add_roles(role)
