@@ -246,7 +246,7 @@ async def on_command_error(ctx, error):
             description="Command not found!",
             color=0xff0000
         )
-        embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
+        embed.add_field(name=f'{ctx.author}', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
         await ctx.send(embed=embed)
 
     if isinstance(error, commands.CheckFailure):
