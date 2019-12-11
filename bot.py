@@ -37,7 +37,7 @@ async def on_member_join(member):
     channel = discord.utils.get(member.guild.channels, name='welcome')
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Welcome to the Server!')
-    embed.add_field(name=f'New member!', value=f'{member} has joined this server!', inline=False)
+    embed.add_field(name=f'New member!', value=f'{member} has joined {member.guild.name}', inline=False)
     await channel.send(embed=embed)
 
 @bot.command()
@@ -81,7 +81,7 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     await user.remove_roles(rolerem)
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Muted!')
-    embed.add_field(name='You were muted in Elite Programmers Group for : ', value=reason, inline=False)
+    embed.add_field(name=f'You were muted in {member.guild.name} for : ', value=reason, inline=False)
     await user.send(embed=embed)
     await ctx.send(str(user) + f' has been muted by {ctx.author}')
     channel = bot.get_channel(650348478056235014)
