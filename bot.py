@@ -79,8 +79,11 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     rolerem = discord.utils.get(ctx.guild.roles, name="Member")
     await user.add_roles(role)
     await user.remove_roles(rolerem)
-    embed = discord.Embed(color=0xFFFF)
-    embed.set_author(name='Muted!')
+    embeda = discord.Embed(
+        title="Muted!"
+        description="Sorry mate, but you were muted, heres why:-"
+        color=0xFFFF
+    )
     embed.add_field(name=f'You were muted in {ctx.guild.name} for : ', value=reason, inline=False)
     await user.send(embed=embed)
     await ctx.send(str(user) + f' has been muted by {ctx.author}')
@@ -156,9 +159,12 @@ async def diceroll(ctx):
 @bot.command()
 async def warn(ctx, user: discord.User, *, reason=None):
     await ctx.channel.purge(limit=1)
-    embeda = discord.Embed(color=0xFFFF)
-    embeda.set_author(name=f'Warning')
-    embeda.add_field(name='You were warned in Elite Programmers group for :', value=reason, inline=False)
+    embeda = discord.Embed(
+        title="Warning"
+        description="You are being warned!"
+        color=0xFFFF
+    )
+    embeda.add_field(name=f'You were warned in {ctx.guild.name} for :', value=reason, inline=False)
     await user.send(embed=embeda)
     await ctx.send(str(user) + ' has succesfully been warned for ' + reason)
     channel = bot.get_channel(650348478056235014)
@@ -170,10 +176,14 @@ async def warn(ctx, user: discord.User, *, reason=None):
 
 @bot.command()
 async def pms(ctx, user: discord.User, *, message=None):
-    embed = discord.Embed(color=0xffc0cb)
-    embed.set_author(name='You got Mail!')
+    embed = discord.Embed(
+        title="You got Mail!"
+        description="You have (1) new message."
+        color=0xffff00
+    )
     embed.add_field(name='Message contents :-', value=message, inline=False)
     embed.add_field(name='Sender :-', value=f'{ctx.author.mention}', inline=False)
+    embed.add_field(name='Server :-', value=f'{ctx.guild.name}', inline=False)
     embed.set_footer(text='PyBot Messaging Service (PMS)')
     await user.send(embed=embed)
     await ctx.send(f'{ctx.author.mention}, Succesfully sent your message to ' + str(user) + ' which says : ' + str(message))
@@ -190,21 +200,15 @@ async def suggest(ctx, *, suggest=None):
     for emoji in reactions:
         await bot.add_reaction(msg, emoji)
 
-@bot.command()
-async def facts(ctx):
-    fact = [
-        'There are still some spacecraft operating on the 70s programs!',
-        'There are 698 different coding languages available! If it were a country, it\'d come in 3rd place, behind Indonesia(700)!!!',
-        'By far, Python is considered the EASIEST Language to learn, ever made!'
-    ]
-    await ctx.send(random.choice(fact))
-
 @commands.has_role("Staff")
 @bot.command()
 async def kick(ctx, user:discord.Member, *, reason=None):
-    embeda = discord.Embed(color=0xFFFF)
-    embeda.set_author(name='Kicked!')
-    embeda.add_field(name='You were kicked from Elite Programmers Group for :', value=reason, inline=False)
+    embeda = discord.Embed(
+        title="Kicked!"
+        description="Sorry mate, but you were kicked, heres why:-"
+        color=0xFFFF
+    )
+    embeda.add_field(name=f'You were kicked from {ctx.guild.name} for :', value=reason, inline=False)
     await user.send(embed=embeda)
     await user.kick(reason=reason)
     await ctx.send(str(user) + ' has succesfully been kicked for : ' + reason)
@@ -218,9 +222,12 @@ async def kick(ctx, user:discord.Member, *, reason=None):
 @commands.has_role("Staff")
 @bot.command()
 async def ban(ctx, user:discord.Member, *, reason=None):
-    embeda = discord.Embed(color=0xFFFF)
-    embeda.set_author(name='Banned!')
-    embeda.add_field(name='You were Banned from Elite Programmers Group for :', value=reason, inline=False)
+    embeda = discord.Embed(
+        title="Banned!"
+        description="Sorry mate, but you were banned, heres why:-"
+        color=0xFFFF
+    )
+    embeda.add_field(name=f'You were Banned from {ctx.guild.name} for :', value=reason, inline=False)
     await user.send(embed=embeda)
     await user.ban(reason=reason)
     await ctx.send(str(user) + ' has succesfully been banned for : ' + reason)
@@ -234,15 +241,22 @@ async def ban(ctx, user:discord.Member, *, reason=None):
 @bot.listen()
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
-        embed = discord.Embed(color=0xff0000)
-        embed.set_author(name='Error!')
+        embed = discord.Embed(
+            title="Error!",
+            description="Command not found!",
+            color=0xff0000
+        )
         embed.add_field(name='Command Not Found!', value='The command you requested for was not found in the code, please refer to `?help` for my commands!', inline=False)
         await ctx.send(embed=embed)
 
     if isinstance(error, commands.CheckFailure):
-        embed = discord.Embed(color=0xff0000)
-        embed.set_author(name='Error!')
+        embed = discord.Embed(
+            title="Error!",
+            description="Lacking Permissions!",
+            color=0xff0000
+        )
         embed.add_field(name='Permissions', value='You don\'t have the permissions to run this command!', inline=False)
+        embed.add_field(name='If you need help...', value='If you need any kind of help, feel free to contact any staff member, thanks :)', inline=False)
         await ctx.send(embed=embed)
 
 

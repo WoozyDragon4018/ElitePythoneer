@@ -18,7 +18,7 @@ class CustomHelpCommand(commands.HelpCommand):
 		await self.context.send(embed=emb)
 
 	async def send_command_help(self, command):
-		emb = discord.Embed(title="PyBot Help", description=f"```{self.get_command_signature(command)}```", colour=0x39393f)
+		emb = discord.Embed(title="PyBot Help", description=f"```{self.get_command_signature(command)}```", colour=0xffa500)
 		emb.add_field(name="Details", value=command.help or "No details available.", inline=False)
 		await self.context.send(embed=emb)
 
