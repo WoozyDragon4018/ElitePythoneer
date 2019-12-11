@@ -72,7 +72,9 @@ async def modhelp(ctx):
 @commands.has_role("Staff")
 @bot.command()
 async def mute(ctx, user:discord.Member, *, reason=None):
-    """Mutes the Mentioned user"""
+    """
+    Mutes the Mentioned user
+    """
     role = discord.utils.get(ctx.guild.roles, name="Muted")
     rolerem = discord.utils.get(ctx.guild.roles, name="Member")
     await user.add_roles(role)
