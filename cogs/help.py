@@ -7,7 +7,7 @@ class CustomHelpCommand(commands.HelpCommand):
 		emb = discord.Embed(
 			title="PyBot Help",
 			description=f"Use `{self.clean_prefix}help [command]` for more info on a command.",
-			colour=0x39393f
+			colour=0xffa500
 		)
 		commands_to_show = []
 		for command in self.context.bot.commands:
@@ -20,7 +20,6 @@ class CustomHelpCommand(commands.HelpCommand):
 	async def send_command_help(self, command):
 		emb = discord.Embed(title="PyBot Help", description=f"```{self.get_command_signature(command)}```", colour=0x39393f)
 		emb.add_field(name="Details", value=command.help or "No details available.", inline=False)
-		emb.add_field(name="Aliases", value=f"```{', '.join(command.aliases)}```" if command.aliases else "No aliases exist.", inline=False)
 		await self.context.send(embed=emb)
 
 	def get_command_signature(self, command):

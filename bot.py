@@ -45,7 +45,7 @@ async def calchelp(ctx):
     """
     Displays help about some Calculator commands.
     """
-    embed=discord.Embed(color=0x00ff00)
+    embed=discord.Embed(color=0xffa500)
     embed.set_author(name='PyBot Calculator Help')
     embed.add_field(name='?a', value='Addition [?a 11 12]', inline=False)
     embed.add_field(name='?s', value='Subtraction [?s 15 13]', inline=False)
@@ -60,7 +60,7 @@ async def modhelp(ctx):
     """
     Displays help about some Moderation Commands.
     """
-    embed=discord.Embed(color=0x0000ff)
+    embed=discord.Embed(color=0xffa500)
     embed.set_author(name='PyBot Moderation Help')
     embed.add_field(name='?clear', value='Mass deletes messages [?clear 11]', inline=False)
     embed.add_field(name='?warn', value='Warns the mentioned user [?warn @<user> <reason>]', inline=False)
