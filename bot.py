@@ -81,7 +81,7 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     await user.remove_roles(rolerem)
     embed = discord.Embed(color=0xFFFF)
     embed.set_author(name='Muted!')
-    embed.add_field(name=f'You were muted in {member.guild.name} for : ', value=reason, inline=False)
+    embed.add_field(name=f'You were muted in {ctx.guild.name} for : ', value=reason, inline=False)
     await user.send(embed=embed)
     await ctx.send(str(user) + f' has been muted by {ctx.author}')
     channel = bot.get_channel(650348478056235014)
