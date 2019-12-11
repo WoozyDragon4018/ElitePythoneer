@@ -1,1 +1,1 @@
-{"extensions": ["cogs.pingpong"]}
+{"extensions": ["cogs.pingpong", "cogs.help"]}
