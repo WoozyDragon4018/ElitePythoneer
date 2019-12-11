@@ -80,8 +80,8 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     await user.add_roles(role)
     await user.remove_roles(rolerem)
     embeda = discord.Embed(
-        title="Muted!"
-        description="Sorry mate, but you were muted, heres why:-"
+        title="Muted!",
+        description="Sorry mate, but you were muted, heres why:-",
         color=0xFFFF
     )
     embed.add_field(name=f'You were muted in {ctx.guild.name} for : ', value=reason, inline=False)
@@ -160,8 +160,8 @@ async def diceroll(ctx):
 async def warn(ctx, user: discord.User, *, reason=None):
     await ctx.channel.purge(limit=1)
     embeda = discord.Embed(
-        title="Warning"
-        description="You are being warned!"
+        title="Warning",
+        description="You are being warned!",
         color=0xFFFF
     )
     embeda.add_field(name=f'You were warned in {ctx.guild.name} for :', value=reason, inline=False)
@@ -177,8 +177,8 @@ async def warn(ctx, user: discord.User, *, reason=None):
 @bot.command()
 async def pms(ctx, user: discord.User, *, message=None):
     embed = discord.Embed(
-        title="You got Mail!"
-        description="You have (1) new message."
+        title="You got Mail!",
+        description="You have (1) new message.",
         color=0xffff00
     )
     embed.add_field(name='Message contents :-', value=message, inline=False)
@@ -204,8 +204,8 @@ async def suggest(ctx, *, suggest=None):
 @bot.command()
 async def kick(ctx, user:discord.Member, *, reason=None):
     embeda = discord.Embed(
-        title="Kicked!"
-        description="Sorry mate, but you were kicked, heres why:-"
+        title="Kicked!",
+        description="Sorry mate, but you were kicked, heres why:-",
         color=0xFFFF
     )
     embeda.add_field(name=f'You were kicked from {ctx.guild.name} for :', value=reason, inline=False)
@@ -223,8 +223,8 @@ async def kick(ctx, user:discord.Member, *, reason=None):
 @bot.command()
 async def ban(ctx, user:discord.Member, *, reason=None):
     embeda = discord.Embed(
-        title="Banned!"
-        description="Sorry mate, but you were banned, heres why:-"
+        title="Banned!",
+        description="Sorry mate, but you were banned, heres why:-",
         color=0xFFFF
     )
     embeda.add_field(name=f'You were Banned from {ctx.guild.name} for :', value=reason, inline=False)
