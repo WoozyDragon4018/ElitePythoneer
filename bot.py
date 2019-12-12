@@ -178,8 +178,13 @@ async def rate(ctx, rating, *, remarks):
         )
         embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
         await channel.send(embed=embed)
+        await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
+
+    elif isinstance(commands.errors.BadArgument):
+        await ctx.send('Please enter a **NUMBER**')
+
     else:
-        await ctx.send('Please enter a rating **number** less than **10**!')
+        await ctx.send('Please enter a rating number less than **10**!')
 
 @commands.has_role("Staff")
 @bot.command()
