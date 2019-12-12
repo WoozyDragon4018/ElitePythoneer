@@ -133,9 +133,11 @@ async def clear(ctx,amount:int=0):
         await ctx.channel.purge(limit=amount+1)
         await ctx.send(f"{amount} message has been deleted."if(int(amount)is 1)else(f"{amount} messages have been deleted."),delete_after=5)
         channel = discord.utils.get(ctx.guild.channels, name='logs')
-        embed = discord.Embed(color=0xFFFFFF)
-        embed.set_author(name='Mod Command Used!')
-        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command.')
+        embed = discord.Embed(
+            title="Moderator Command Used!",
+            color=0xFFFFFF
+        )
+        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command in {ctx.channel.name}')
         await channel.send(embed=embed)
 
 @bot.command()
