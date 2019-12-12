@@ -316,7 +316,7 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     await channel.send(embed=embed)
 
 @bot.listen()
-async def on_command_error(error, ctx):
+async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         embed = discord.Embed(
             title="Error!",
