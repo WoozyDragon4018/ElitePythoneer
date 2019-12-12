@@ -3,6 +3,7 @@ from discord.ext import commands, tasks
 import os
 import random
 import json
+import math
 from discord.utils import get
 from itertools import cycle
 
@@ -46,7 +47,7 @@ async def on_member_join(member):
     logchanl = discord.utils.get(member.guild.channels, name='logs')
     embeda = discord.Embed(
         title=f"Role Assigned to New Member",
-        description=f"{role} was given to {member} for joining the server",
+        description=f"{role} role was given to {member} for joining the server",
         color=0x00FF00
     )
     await logchanl.send(embed=embeda)
@@ -154,6 +155,20 @@ async def sq(ctx, num):
     squared_value = int(num) * int(num)
     await ctx.send(str(num) + ' squared is ' + str(squared_value))
 
+#Pythogoreas Theorem
+@bot.command()
+async def pt(ctx, base, height):
+    """Pythagoreas Theorem - Finds the 3rd side/Hypotenuse of a Right Angled Triangle [p^2 + b^2 = h^2]"""
+    base_sq = int(base) * int(base)
+    height_sq = int(height) * int(height)
+    hypotenuse_sq = int(base_sq) + int(height_sq)
+    hypo_sqrt = math.sqrt(hypotenuse_sq)
+    await ctx.send(
+        'Base = ' + str(base),
+        'Height = ' + str(height),
+        'Third Side/Hypotenuse is = %0.3f' % (hypo_sqrt)
+    )
+
 @commands.has_role("Staff")
 @bot.command()
 async def clear(ctx,amount:int=0):
@@ -166,7 +181,7 @@ async def clear(ctx,amount:int=0):
             title="Moderator Command Used!",
             color=0x00FF00
         )
-        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command in {ctx.channel}')
+        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `clear` command in {ctx.channel}')
         await channel.send(embed=embed)
 
 @bot.command()
