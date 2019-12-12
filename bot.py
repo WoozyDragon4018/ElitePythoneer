@@ -173,7 +173,7 @@ async def rate(ctx, rating, *, remarks):
         channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
         embed = discord.Embed(
             title=f"Rating from {ctx.author}",
-            description=str(rating)
+            description=str(rating),
             color=0x000075
         )
         embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
