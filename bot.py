@@ -316,7 +316,7 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     await channel.send(embed=embed)
 
 @bot.listen()
-async def on_command_error(ctx, error):
+async def on_command_error(error, ctx):
     if isinstance(error, commands.CommandNotFound):
         embed = discord.Embed(
             title="Error!",
@@ -336,10 +336,10 @@ async def on_command_error(ctx, error):
         embed.add_field(name='If you need help...', value='If you need any kind of help, feel free to contact any staff member, thanks :)', inline=False)
         await ctx.send(embed=embed)
 
-    if isinstance(error, commands.MissingRequiredArguments):
+    if isinstance(error, commands.MissingRequiredArgument):
         embed = discord.Embed(
             title="Error!",
-            description="Arguments Missing!",
+            description="Argument Missing!",
             color=0xff0000
         )
         embed.add_field(name=f"{ctx.author}", value="Main arguments needed to run this command are missing, please refer to the `?help` command for details on this command and which things are required for it to work.", inline=False)
