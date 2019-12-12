@@ -162,11 +162,10 @@ async def pt(ctx, base, height):
     base_sq = int(base) * int(base)
     height_sq = int(height) * int(height)
     hypotenuse_sq = int(base_sq) + int(height_sq)
-    hypo_sqrt = math.sqrt(hypotenuse_sq)
     await ctx.send(
         'Base = ' + str(base),
         'Height = ' + str(height),
-        'Third Side/Hypotenuse is = %0.3f' % (hypo_sqrt)
+        'Third Side/Hypotenuse is = %f' % math.sqrt(hypotenuse_sq)
     )
 
 @commands.has_role("Staff")
