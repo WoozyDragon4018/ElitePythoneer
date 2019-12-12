@@ -168,12 +168,12 @@ async def pt(ctx, base, height):
 async def rate(ctx, rating, *, remarks):
     """Rate the Server on a basis of 0-10"""
     ratescore = 10
-    if int(rating) < 10:
+    if int(rating) <= 10:
         avg = int(rating) / int(ratescore)
         channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
         embed = discord.Embed(
             title=f"Rating from {ctx.author}",
-            description=str(rating),
+            description=str(avg),
             color=0x000075
         )
         embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
