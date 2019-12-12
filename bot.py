@@ -35,10 +35,21 @@ async def on_member_join(member):
     role = discord.utils.get(member.guild.roles, name='Member')
     await member.add_roles(role)
     channel = discord.utils.get(member.guild.channels, name='welcome')
-    embed = discord.Embed(color=0xFFFF)
-    embed.set_author(name='Welcome to the Server!')
-    embed.add_field(name=f'New member!', value=f'{member} has joined {member.guild.name}', inline=False)
+    embed = discord.Embed(
+        title="A new Member!",
+        description=f"{member} has joined {member.guild.name}",
+        color=0xFFFF
+    )
+    embed.set_thumbnail(url=member.avatar_url)
     await channel.send(embed=embed)
+
+    logchanl = discord.utils.get(member.guild.channels, name='logs')
+    embeda = discord.Embed(
+        title=f"Role Assigned to New Member",
+        description=f"@Member role was given to {member} for joining the server",
+        color=0x00FF00
+    )
+    await logchanl.send(embed=embeda)
 
     await member.create_dm()
     emb = discord.Embed(
@@ -98,8 +109,10 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     await user.send(embed=embed)
     await ctx.send(str(user) + f' has been muted by {ctx.author}')
     channel = discord.utils.get(ctx.guild.channels, name='logs')
-    embeda = discord.Embed(color=0xFFFFFF)
-    embeda.set_author(name='Mod Command Used!')
+    embeda = discord.Embed(
+        title="Moderator Command Used!",
+        color=0x00FF00
+    )
     embeda.add_field(name='Mute Command Used', value=f'{ctx.author.mention} has used `MUTE` command to mute ' + str(user))
     embeda.add_field(name='Reason:', value=reason, inline=False)
     await channel.send(embed=embeda)
@@ -145,7 +158,7 @@ async def clear(ctx,amount:int=0):
         channel = discord.utils.get(ctx.guild.channels, name='logs')
         embed = discord.Embed(
             title="Moderator Command Used!",
-            color=0xFFFFFF
+            color=0x00FF00
         )
         embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command in {ctx.channel.name}')
         await channel.send(embed=embed)
@@ -180,8 +193,10 @@ async def warn(ctx, user: discord.User, *, reason=None):
     await user.send(embed=embeda)
     await ctx.send(str(user) + ' has succesfully been warned for ' + reason)
     channel = discord.utils.get(ctx.guild.channels, name='logs')
-    embed = discord.Embed(color=0xFFFFFF)
-    embed.set_author(name='Mod Command Used!')
+    embed = discord.Embed(
+        title="Moderator Command Used!",
+        color=0x00FF00
+    )
     embed.add_field(name='Warn Command used', value=f'{ctx.author} has warned ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
     await channel.send(embed=embed)
@@ -207,10 +222,7 @@ async def suggest(ctx, *, suggest=None):
     embed.set_author(name=f'{ctx.author}')
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
-    msg = await channel.send(embed=embed)
-    reactions = ['dart']
-    for emoji in reactions:
-        await bot.add_reaction(msg, emoji)
+    await channel.send(embed=embed)
 
 @commands.has_role("Staff")
 @bot.command()
@@ -225,7 +237,10 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     await user.kick(reason=reason)
     await ctx.send(str(user) + ' has succesfully been kicked for : ' + reason)
     channel = discord.utils.get(ctx.guild.channels, name='logs')
-    embed = discord.Embed(color=0xFFFFFF)
+    embed = discord.Embed(
+        title="Moderator Command Used!",
+        color=0x00FF00
+    )
     embed.set_author(name='Mod Command Used!')
     embed.add_field(name='Kick Command used', value=f'{ctx.author} has kicked ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
@@ -244,7 +259,10 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     await user.ban(reason=reason)
     await ctx.send(str(user) + ' has succesfully been banned for : ' + reason)
     channel = discord.utils.get(ctx.guild.channels, name='logs')
-    embed = discord.Embed(color=0xFFFFFF)
+    embed = discord.Embed(
+        title="Moderator Command Used!",
+        color=0x00FF00
+    )
     embed.set_author(name='Mod Command Used!')
     embed.add_field(name='Ban Command used', value=f'{ctx.author} has banned ' + str(user), inline=False)
     embed.add_field(name='Reason : ', value=reason, inline=False)
