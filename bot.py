@@ -164,6 +164,20 @@ async def pt(ctx, base, height):
     hypotenuse_sq = int(base_sq) + int(height_sq)
     await ctx.send('Third Side/Hypotenuse is = %f' % math.sqrt(hypotenuse_sq))
 
+@bot.command()
+async def rate(ctx, rating, *, remarks):
+    """Rate the Server on a basis of 0-10"""
+    ratescore = 10
+    avg = int(rating) / int(ratescore)
+    channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
+    embed = discord.Embed(
+        title=f"Rating from {ctx.author}",
+        description=str(avg),
+        color=0x000075
+    )
+    embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
+    await channel.send(embed=embed)
+
 @commands.has_role("Staff")
 @bot.command()
 async def clear(ctx,amount:int=0):
@@ -174,9 +188,12 @@ async def clear(ctx,amount:int=0):
         channel = discord.utils.get(ctx.guild.channels, name='logs')
         embed = discord.Embed(
             title="Moderator Command Used!",
+            description="Purge Command Used",
             color=0x00FF00
         )
-        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `clear` command in {ctx.channel}')
+        embed.add_field(name='Moderator', value=f'{ctx.author.mention}', inline=False)
+        embed.add_field(name='Channel', value=f'#{ctx.channel}', inline=False)
+        embed.add_field(name='Amount', value=f'{amount}', inline=False)
         await channel.send(embed=embed)
 
 @bot.command()
@@ -205,10 +222,12 @@ async def warn(ctx, user: discord.User, *, reason=None):
     await ctx.channel.purge(limit=1)
     embeda = discord.Embed(
         title="Warning",
-        description="You are being warned!",
+        description=f"Here's all information about your warning",
         color=0xFFFF
     )
-    embeda.add_field(name=f'You were warned in {ctx.guild.name} for :', value=reason, inline=False)
+    embeda.add_field(name=f'Server', value=f'{ctx.guild.name}', inline=False)
+    embeda.add_field(name=f'Moderator', value=f'{ctx.author.mention}', inline=False)
+    embeda.add_field(name='Reason', value=reason, inline=False)
     await user.send(embed=embeda)
     await ctx.send(str(user) + ' has succesfully been warned for ' + reason)
     channel = discord.utils.get(ctx.guild.channels, name='logs')
@@ -251,10 +270,12 @@ async def kick(ctx, user:discord.Member, *, reason=None):
     """Kicks the Mentioned User"""
     embeda = discord.Embed(
         title="Kicked!",
-        description="Sorry mate, but you were kicked, heres why:-",
+        description="Here's all information about your kick",
         color=0xFFFF
     )
-    embeda.add_field(name=f'You were kicked from {ctx.guild.name} for :', value=reason, inline=False)
+    embeda.add_field(name=f'Server', value=f'{ctx.guild.name}', inline=False)
+    embeda.add_field(name='Moderator', value=f'{ctx.author.mention}', inline=False)
+    embeda.add_field(name='Reason', value=reason, inline=False)
     await user.send(embed=embeda)
     await user.kick(reason=reason)
     await ctx.send(str(user) + ' has succesfully been kicked for : ' + reason)
@@ -274,10 +295,12 @@ async def ban(ctx, user:discord.Member, *, reason=None):
     """Bans the Mentioned User"""
     embeda = discord.Embed(
         title="Banned!",
-        description="Sorry mate, but you were banned, heres why:-",
+        description="Here's all information regarding your ban.",
         color=0xFFFF
     )
-    embeda.add_field(name=f'You were Banned from {ctx.guild.name} for :', value=reason, inline=False)
+    embeda.add_field(name=f'Server', value=f'{ctx.guild.name}', inline=False)
+    embeda.add_field(name='Moderator', value=f'{ctx.author.mention}', inline=False)
+    embeda.add_field(name='Reason', value=reason, inline=False)
     await user.send(embed=embeda)
     await user.ban(reason=reason)
     await ctx.send(str(user) + ' has succesfully been banned for : ' + reason)
