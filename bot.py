@@ -46,7 +46,7 @@ async def on_member_join(member):
     logchanl = discord.utils.get(member.guild.channels, name='logs')
     embeda = discord.Embed(
         title=f"Role Assigned to New Member",
-        description=f"@Member role was given to {member} for joining the server",
+        description=f"{role} was given to {member} for joining the server",
         color=0x00FF00
     )
     await logchanl.send(embed=embeda)
@@ -122,36 +122,42 @@ async def mute(ctx, user:discord.Member, *, reason=None):
 #Addition...
 @bot.command()
 async def a(ctx, numi, numii):
+    """Addition of Two Integers"""
     sum_value = int(numi) + int(numii)
     await ctx.send(str(numi) + ' + ' + str(numii) + ' = ' + str(sum_value))
 
 #Multiplication
 @bot.command()
 async def m(ctx, numi, numii):
+    """Multiplication of Two Integers"""
     sum_value = int(numi) * int(numii)
     await ctx.send(str(numi) + ' x ' + str(numii) + ' = ' + str(sum_value))
 
 #Subtraction
 @bot.command()
 async def s(ctx, numi, numii):
+    """Subtraction of Two Integers"""
     sum_value = int(numi) - int(numii)
     await ctx.send(str(numi) + ' - ' + str(numii) + ' = ' + str(sum_value))
 
 #Division
 @bot.command()
 async def d(ctx, numi, numii):
+    """Division of Two Integers"""
     sum_value = int(numi) / int(numii)
     await ctx.send(str(numi) + ' / ' + str(numii) + ' = ' + str(sum_value))
 
 #Squared Numbers
 @bot.command()
 async def sq(ctx, num):
+    """Squared Value of one integer"""
     squared_value = int(num) * int(num)
     await ctx.send(str(num) + ' squared is ' + str(squared_value))
 
 @commands.has_role("Staff")
 @bot.command()
 async def clear(ctx,amount:int=0):
+    """Used to clear a certain amount of messages"""
     if ctx.author.guild_permissions.manage_messages:
         await ctx.channel.purge(limit=amount+1)
         await ctx.send(f"{amount} message has been deleted."if(int(amount)is 1)else(f"{amount} messages have been deleted."),delete_after=5)
@@ -160,11 +166,12 @@ async def clear(ctx,amount:int=0):
             title="Moderator Command Used!",
             color=0x00FF00
         )
-        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command in {ctx.channel.name}')
+        embed.add_field(name='Clear Command used', value=f'{ctx.author.mention} has used `purge` command in {ctx.channel}')
         await channel.send(embed=embed)
 
 @bot.command()
 async def coinflip(ctx):
+    """Flip a Coin"""
     flip = [
         'You got **heads**',
         'You got **tails**'
@@ -174,6 +181,7 @@ async def coinflip(ctx):
 
 @bot.command()
 async def diceroll(ctx):
+    """Roll a Dice"""
     roll = [
         '1','2','3','4','5','6'
     ]
@@ -183,6 +191,7 @@ async def diceroll(ctx):
 @commands.has_role("Staff")
 @bot.command()
 async def warn(ctx, user: discord.User, *, reason=None):
+    """Warns the Mentioned user"""
     await ctx.channel.purge(limit=1)
     embeda = discord.Embed(
         title="Warning",
@@ -203,6 +212,7 @@ async def warn(ctx, user: discord.User, *, reason=None):
 
 @bot.command()
 async def pms(ctx, user: discord.User, *, message=None):
+    """Sends a Private/Direct Message to the Mentioned User"""
     embed = discord.Embed(
         title="You got Mail!",
         description="You have (1) new message.",
@@ -217,6 +227,7 @@ async def pms(ctx, user: discord.User, *, message=None):
 
 @bot.command(pass_context = True)
 async def suggest(ctx, *, suggest=None):
+    """Used to suggest for the server"""
     channel = discord.utils.get(ctx.guild.channels, name='suggestions')
     embed = discord.Embed(color=0xffff00)
     embed.set_author(name=f'{ctx.author}')
@@ -227,6 +238,7 @@ async def suggest(ctx, *, suggest=None):
 @commands.has_role("Staff")
 @bot.command()
 async def kick(ctx, user:discord.Member, *, reason=None):
+    """Kicks the Mentioned User"""
     embeda = discord.Embed(
         title="Kicked!",
         description="Sorry mate, but you were kicked, heres why:-",
@@ -249,6 +261,7 @@ async def kick(ctx, user:discord.Member, *, reason=None):
 @commands.has_role("Staff")
 @bot.command()
 async def ban(ctx, user:discord.Member, *, reason=None):
+    """Bans the Mentioned User"""
     embeda = discord.Embed(
         title="Banned!",
         description="Sorry mate, but you were banned, heres why:-",
