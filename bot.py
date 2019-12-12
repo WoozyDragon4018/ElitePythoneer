@@ -264,8 +264,8 @@ async def suggest(ctx, *, suggest=None):
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
     msg = await channel.send(embed=embed)
-    await msg.add_reaction(checkmark)
-    await msg.add_reaction(crossmark)
+    await msg.add_reaction('<:checkmark:654592589747585025>')
+    await msg.add_reaction('<:crossmark:654592592142663681>')
 
 @commands.has_role("Staff")
 @bot.command()
