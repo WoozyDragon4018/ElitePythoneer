@@ -165,26 +165,19 @@ async def pt(ctx, base, height):
     await ctx.send('Third Side/Hypotenuse is = %f' % math.sqrt(hypotenuse_sq))
 
 @bot.command()
-async def rate(ctx, rating, *, remarks):
+async def rate(ctx, rating, *, remarks=None):
     """Rate the Server on a basis of 0-10"""
-    ratescore = 10
-    if int(rating) <= 10:
-        avg = int(rating) / int(ratescore)
-        channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
-        embed = discord.Embed(
-            title=f"Rating from {ctx.author}",
-            description=str(avg),
-            color=0x000075
-        )
-        embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
-        await channel.send(embed=embed)
-        await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
-
-    elif isinstance(commands.errors.BadArgument):
-        await ctx.send('Please enter a **NUMBER**')
-
-    else:
-        await ctx.send('Please enter a rating number less than **10**!')
+    ratescore = 100
+    avg = int(rating) / int(ratescore)
+    channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
+    embed = discord.Embed(
+        title=f"Rating from {ctx.author}",
+        description=str(avg),
+        color=0x000075
+    )
+    embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
+    await channel.send(embed=embed)
+    await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
 
 @commands.has_role("Staff")
 @bot.command()
@@ -343,7 +336,23 @@ async def on_command_error(ctx, error):
         embed.add_field(name='If you need help...', value='If you need any kind of help, feel free to contact any staff member, thanks :)', inline=False)
         await ctx.send(embed=embed)
 
+    if isinstance(error, commands.MissingRequiredArguments):
+        embed = discord.Embed(
+            title="Error!",
+            description="Arguments Missing!",
+            color=0xff0000
+        )
+        embed.add_field(name=f"{ctx.author}", value="Main arguments needed to run this command are missing, please refer to the `?help` command for details on this command and which things are required for it to work.", inline=False)
+        await ctx.send(embed=embed)
 
+    if isinstance(error, commands.BadArgument):
+        embed = discord.Embed(
+            title="Error!",
+            description="Invalid Argument",
+            color=0xff0000
+        )
+        embed.add_field(name=f'{ctx.author}', value="Please enter valid arguments which are needed for the command to run, you can refer to `?help` for details on this command. Thanks.", inline=False)
+        await ctx.send(embed=embed)
 
 if len(extensions) > 0:
     for ext in extensions:
