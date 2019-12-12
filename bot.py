@@ -19,7 +19,7 @@ def get_prefix(bot, msg):
 bot=commands.Bot(case_insensitive=True,command_prefix=get_prefix)
 bot.remove_command('help')
 
-status = cycle(['PyBot v1.0!', 'with WoozyDragon', 'VLC Media Player', 'Ludo', 'Snakes and Ladders', 'Space Shuttle', 'ISRO', 'Human Legacy by Ivan Torrent'])
+status = cycle(['PyBot v1.0!', 'with WoozyDragon', 'VLC Media Player', 'Ludo', 'Snakes and Ladders', 'Space Shuttle', 'ISRO', 'Human Legacy by Ivan Torrent', '?help | Commands Help!'])
 
 @bot.listen()
 async def on_ready():
@@ -39,6 +39,16 @@ async def on_member_join(member):
     embed.set_author(name='Welcome to the Server!')
     embed.add_field(name=f'New member!', value=f'{member} has joined {member.guild.name}', inline=False)
     await channel.send(embed=embed)
+
+    await member.create_dm()
+    emb = discord.Embed(
+        title=f"A Warm Welcome!",
+        color=0xFFFF
+    )
+    emb.add_field(name='This is your Captain Speaking,', value=f'A Warm welcome to {member.guild.name}!', inline=False)
+    emb.add_field(name='Things', value='We got a load of things to show to you in our server!', inline=False)
+    emb.add_field(name='Rules', value='But before you start chatting and all, be sure to read the rules at #rules!', inline=False)
+    await member.dm_channel.send(embed=emb)
 
 @bot.command()
 async def calchelp(ctx):
