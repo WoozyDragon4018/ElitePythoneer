@@ -264,6 +264,8 @@ async def suggest(ctx, *, suggest=None):
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
     await channel.send(embed=embed)
+    await add_reaction(checkmark)
+    await add_reaction(crossmark)
 
 @commands.has_role("Staff")
 @bot.command()
@@ -345,7 +347,7 @@ async def on_command_error(ctx, error):
         embed.add_field(name=f"{ctx.author}", value="Main arguments needed to run this command are missing, please refer to the `?help` command for details on this command and which things are required for it to work.", inline=False)
         await ctx.send(embed=embed)
 
-    if isinstance(error, commands.BadArgument):
+    if isinstance(error, discord.InvalidArgument):
         embed = discord.Embed(
             title="Error!",
             description="Invalid Argument",
