@@ -190,7 +190,7 @@ async def on_message_delete(message):
     emb.add_field(name="Message was sent in:", value=f"{message.channel}", inline=False)
     emb.add_field(name="Message was sent by:", value=f"{message.author}", inline=False)
     emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
-    await logchannel.send(emb)
+    await logchannel.send(embed=emb)
 
 
 @commands.has_role("Staff")
