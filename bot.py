@@ -190,9 +190,9 @@ async def on_message_delete(message):
         title="Message Deleted",
         color=0x00FF00
     )
-    emb.add_field(name="Channel", value=channel, inline=False)
-    emb.add_field(name="Author", value=author, inline=False)
-    emb.add_field(name="Message", value=message, inline=False)
+    emb.add_field(name="Message was sent in:", value=channel, inline=False)
+    emb.add_field(name="Message was sent by:", value=author, inline=False)
+    emb.add_field(name="Message contained:", value=message, inline=False)
     await logchannel.send(emb)
 
 
