@@ -169,6 +169,7 @@ async def rate(ctx, rating, *, remarks=None):
     """Rate the Server on a basis of 0-100"""
     await ctx.channel.purge(limit=amount+1)
     if rating >= 0 and rating <= 100:
+        ratescore = 100
         channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
         embed = discord.Embed(
             title=f"Rating from {ctx.author}",
