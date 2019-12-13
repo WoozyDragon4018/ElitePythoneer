@@ -182,17 +182,14 @@ async def rate(ctx, rating, *, remarks=None):
 #Message Deletion Logs
 @bot.event
 async def on_message_delete(message):
-    author : message.author
-    content : message.content
-    channel : message.channel
     logchannel = discord.utils.get(message.guild.channels, name='logs')
     emb = discord.Embed(
         title="Message Deleted",
         color=0x00FF00
     )
-    emb.add_field(name="Message was sent in:", value=channel, inline=False)
-    emb.add_field(name="Message was sent by:", value=author, inline=False)
-    emb.add_field(name="Message contained:", value=message, inline=False)
+    emb.add_field(name="Message was sent in:", value=f"{message.channel}", inline=False)
+    emb.add_field(name="Message was sent by:", value=f"{message.author}", inline=False)
+    emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
     await logchannel.send(emb)
 
 
