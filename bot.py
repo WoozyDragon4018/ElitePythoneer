@@ -179,6 +179,30 @@ async def rate(ctx, rating, *, remarks=None):
     await channel.send(embed=embed)
     await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
 
+#Reaction Roles
+#This gets the message to add the reaction...
+@bot.event
+async def on_message(msg):
+    if 'conditoin' == True:
+        channel = discord.utils.get(ctx.guild.channels, name='reaction-roles')
+        message = await bot.get_message(msg.channel,'654914713330647049')
+        await message.add_reaction('✈️')
+        await message.add_reaction('🛩️')
+
+#This links to the message and adds the reaction.
+@bot.event
+async def on_reaction_add(reaction, user):
+    ChID = '654905174686433281'
+    if reaction.message.channel.id != ChID:
+        return
+    if reaction.emoji == '✈️':
+        AVNEWS = discord.utils.get(user.server.roles, name="AviationNewsPing")
+        await bot.add_roles(user, AVNEWS)
+    if reaction.emoji == '🛩️':
+        ANPING = discord.utils.get(user.server.roles, name="ServerAnnouncementsPing")
+        await bot.add_roles(user, ANPING)
+
+
 @commands.has_role("Staff")
 @bot.command()
 async def clear(ctx,amount:int):
