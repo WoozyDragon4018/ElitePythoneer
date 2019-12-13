@@ -167,7 +167,7 @@ async def pt(ctx, base, height):
 @bot.command()
 async def rate(ctx, rating, *, remarks=None):
     """Rate the Server on a basis of 0-100"""
-    await ctx.channel.purge(limit=amount+1)
+    await ctx.channel.purge(limit=1)
     ratescore = 100
     channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
     embed = discord.Embed(
@@ -190,7 +190,7 @@ async def on_message_delete(message):
     emb.add_field(name="Message was sent in:", value=f"{message.channel}", inline=False)
     emb.add_field(name="Message was sent by:", value=f"{message.author}", inline=False)
     emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
-    await logchannel.send(embed=emb)
+    await logchannel.send(embed=embed)
 
 
 @commands.has_role("Staff")
