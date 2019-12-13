@@ -179,26 +179,44 @@ async def rate(ctx, rating, *, remarks=None):
     await channel.send(embed=embed)
     await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
 
-#Reaction Roles
-#This gets the message to add the reaction...
-@bot.event
-async def on_message(msg):
-    if 'conditoin' == True:
-        channel = discord.utils.get(ctx.guild.channels, name='reaction-roles')
-        message = await bot.get_message(msg.channel,'654914713330647049')
-
-#This links to the message and adds the reaction.
-@bot.event
-async def on_reaction_add(reaction, user):
-    ChID = '654905174686433281'
-    if reaction.message.channel.id != ChID:
+@bot.event()
+async def on_raw_reaction_add(self, payload):
+    channel = discord.utils.get(self.guild.text_channels, name='reaction-roles')
+    if not payload.guild_id:
         return
-    if reaction.emoji == '✈️':
-        AVNEWS = discord.utils.get(user.server.roles, name="AviationNewsPing")
-        await bot.add_roles(user, AVNEWS)
-    if reaction.emoji == '🛩️':
-        ANPING = discord.utils.get(user.server.roles, name="ServerAnnouncementsPing")
-        await bot.add_roles(user, ANPING)
+
+    if payload.channel_id != channel.id:
+        return
+
+    guild = self.get_guild(payload.guild_id)
+    member = guild.get_member(payload.user_id)
+
+    if payload.emoji.id != 654922679098277909:
+        role = discord.utils.get(guild.roles, name="AviationNewsPing")
+    else:
+        return
+
+    await member.add_roles(role, reason='Reaction Role Given.')
+    await member.send(f'You got the {role} role in {self.guild.name}')
+
+async def on_raw_reaction_remove(self, payload):
+    channel = discord.utils.get(self.guild.text_channels, name='reaction-roles')
+    if not payload.guild_id:
+        return
+
+    if payload.channel_id != channel.id:
+        return
+
+    guild = self.get_guild(payload.guild_id)
+    member = guild.get_member(payload.user_id)
+
+    if payload.emoji.id != 654922679098277909:
+        role = discord.utils.get(guild.roles, name="AviationNewsPing")
+    else:
+        return
+
+    await member.remove_roles(role, reason='Reaction Role Taken')
+    await member.send(f'You lost the {role} role in {self.guild.name}')
 
 
 @commands.has_role("Staff")
