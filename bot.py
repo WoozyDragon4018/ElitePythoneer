@@ -179,44 +179,21 @@ async def rate(ctx, rating, *, remarks=None):
     await channel.send(embed=embed)
     await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
 
+#Message Deletion Logs
 @bot.event
-async def on_raw_reaction_add(self, payload):
-    channel = discord.utils.get(self.guild.text_channels, name='reaction-roles')
-    if not payload.guild_id:
-        return
-
-    if payload.channel_id != channel.id:
-        return
-
-    guild = self.get_guild(payload.guild_id)
-    member = guild.get_member(payload.user_id)
-
-    if payload.emoji.id != 654922679098277909:
-        role = discord.utils.get(guild.roles, name="AviationNewsPing")
-    else:
-        return
-
-    await member.add_roles(role, reason='Reaction Role Given.')
-    await member.send(f'You got the {role} role in {self.guild.name}')
-
-async def on_raw_reaction_remove(self, payload):
-    channel = discord.utils.get(self.guild.text_channels, name='reaction-roles')
-    if not payload.guild_id:
-        return
-
-    if payload.channel_id != channel.id:
-        return
-
-    guild = self.get_guild(payload.guild_id)
-    member = guild.get_member(payload.user_id)
-
-    if payload.emoji.id != 654922679098277909:
-        role = discord.utils.get(guild.roles, name="AviationNewsPing")
-    else:
-        return
-
-    await member.remove_roles(role, reason='Reaction Role Taken')
-    await member.send(f'You lost the {role} role in {self.guild.name}')
+async def on_message_delete(message, member):
+    author : message.author
+    content : message.content
+    channel : message.channel
+    logchannel = discord.utils.get(member.guild.channels, name='logs')
+    emb = discord.Embed(
+        title="Message Deleted",
+        color=0x00FF00
+    )
+    emb.add_field(name="Channel", value=channel, inline=False)
+    emb.add_field(name="Author", value=author, inline=False)
+    emb.add_field(name="Message", value=message, inline=False)
+    await logchannel.send(emb)
 
 
 @commands.has_role("Staff")
