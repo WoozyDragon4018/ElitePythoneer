@@ -186,8 +186,6 @@ async def on_message(msg):
     if 'conditoin' == True:
         channel = discord.utils.get(ctx.guild.channels, name='reaction-roles')
         message = await bot.get_message(msg.channel,'654914713330647049')
-        await message.add_reaction('✈️')
-        await message.add_reaction('🛩️')
 
 #This links to the message and adds the reaction.
 @bot.event
