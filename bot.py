@@ -166,9 +166,8 @@ async def pt(ctx, base, height):
 
 @bot.command()
 async def rate(ctx, rating, *, remarks=None):
-    """Rate the Server on a basis of 0-10"""
-    if str.isdigit(rating):
-        if rating <=100 and rating=>0:
+    """Rate the Server on a basis of 0-100"""
+    if str.isdigit(rating) and rating <=100 and rating=>0:
             ratescore = 100
             avg = int(rating) / int(ratescore)
             channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
@@ -180,12 +179,8 @@ async def rate(ctx, rating, *, remarks=None):
             embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
             await channel.send(embed=embed)
             await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
-
-        else:
-            await ctx.send("Please enter a integer less than/equal to 100 or greater than/equal to 0.")
-
     else:
-        await ctx.send("Please enter a number.")
+        await ctx.send("Please input an **integer** or input < or =100 or > or =0.")
 
 @commands.has_role("Staff")
 @bot.command()
