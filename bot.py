@@ -165,26 +165,31 @@ async def pt(ctx, base, height):
     await ctx.send('Third Side/Hypotenuse is = %f' % math.sqrt(hypotenuse_sq))
 
 @bot.command()
-async def rate(ctx, rating, *, remarks=None):
+async def rate(ctx, rating:int, *, remarks=None):
     """Rate the Server on a basis of 0-100"""
-    if str.isdigit(rating) and rating <=100 and rating=>0:
-            ratescore = 100
-            avg = int(rating) / int(ratescore)
-            channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
-            embed = discord.Embed(
-                title=f"Rating from {ctx.author}",
-                description=f"{rating}/{ratescore}",
-                color=0x000075
-            )
-            embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
-            await channel.send(embed=embed)
-            await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
+    await ctx.channel.purge(limit=amount+1)
+    if rating >= 0 and rating =< 100:
+        channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
+        embed = discord.Embed(
+            title=f"Rating from {ctx.author}",
+            description=f"{rating}/{ratescore}",
+            color=0x000075
+        )
+        embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
+        await channel.send(embed=embed)
+        await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
+
     else:
-        await ctx.send("Please input an **integer** or input < or =100 or > or =0.")
+        ember = discord.Embed(
+            title="Error!",
+            description="Please input an integer less than or equal to 100 and greater than or equal to 0.",
+            color=0xff0000
+        )
+        await ctx.send(embed=ember)
 
 @commands.has_role("Staff")
 @bot.command()
-async def clear(ctx,amount:int=0):
+async def clear(ctx,amount:int):
     """Used to clear a certain amount of messages"""
     if ctx.author.guild_permissions.manage_messages:
         await ctx.channel.purge(limit=amount+1)
