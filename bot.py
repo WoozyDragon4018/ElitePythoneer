@@ -181,7 +181,7 @@ async def rate(ctx, rating, *, remarks=None):
 
 #Message Deletion Logs
 @bot.event
-async def on_message_delete(message, member):
+async def on_message_delete(member, message):
     author : message.author
     content : message.content
     channel : message.channel
