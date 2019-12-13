@@ -165,7 +165,7 @@ async def pt(ctx, base, height):
     await ctx.send('Third Side/Hypotenuse is = %f' % math.sqrt(hypotenuse_sq))
 
 @bot.command()
-async def rate(ctx, rating:int, *, remarks:str=None):
+async def rate(ctx, rating, *, remarks=None):
     """Rate the Server on a basis of 0-100"""
     await ctx.channel.purge(limit=amount+1)
     if rating >= 0 and rating <= 100:
