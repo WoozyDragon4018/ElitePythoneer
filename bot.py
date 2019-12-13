@@ -179,7 +179,7 @@ async def rate(ctx, rating, *, remarks=None):
     await channel.send(embed=embed)
     await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
 
-@bot.event()
+@bot.event
 async def on_raw_reaction_add(self, payload):
     channel = discord.utils.get(self.guild.text_channels, name='reaction-roles')
     if not payload.guild_id:
