@@ -170,13 +170,13 @@ async def rate(ctx, rating, *, remarks=None):
     await ctx.channel.purge(limit=1)
     ratescore = 100
     channel = discord.utils.get(ctx.guild.channels, name='server-ratings')
-    embed = discord.Embed(
+    embeda = discord.Embed(
         title=f"Rating from {ctx.author}",
         description=f"{rating}/{ratescore}",
         color=0x000075
     )
-    embed.add_field(name='Extra Remarks :-', value=remarks, inline=False)
-    await channel.send(embed=embed)
+    embeda.add_field(name='Extra Remarks :-', value=remarks, inline=False)
+    await channel.send(embed=embeda)
     await ctx.send(f'Your rating has succesfully been recorded, {ctx.author.mention}')
 
 #Message Deletion Logs
@@ -190,7 +190,7 @@ async def on_message_delete(message):
     emb.add_field(name="Message was sent in:", value=f"{message.channel}", inline=False)
     emb.add_field(name="Message was sent by:", value=f"{message.author}", inline=False)
     emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
-    await logchannel.send(embed=embed)
+    await logchannel.send(embed=emb)
 
 
 @commands.has_role("Staff")
