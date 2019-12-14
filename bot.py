@@ -198,11 +198,12 @@ async def on_raw_reaction_add(payload):
     if payload.guild_id is None:
         return
     guild = bot.get_guild(payload.guild_id)
-    role = discord.utils.get(guild.roles, name="aviationnewsping")
+    role_id = 654917614962868236
+    role = get(guild.roles, id=role_id)
     member = guild.get_member(payload.user_id)
     avnewsping = ["655403954787844097"]
     if str(payload.channel_id) in avnewsping:
-        await member.add_roles(role, reason="subscribed to aviation news.")
+        await member.add_roles(role, reason="Subscribed to Aviation News!")
 
 
 @commands.has_role("Staff")
