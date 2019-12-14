@@ -118,6 +118,29 @@ async def mute(ctx, user:discord.Member, *, reason=None):
     embeda.add_field(name='Reason:', value=reason, inline=False)
     await channel.send(embed=embeda)
 
+#Report Command
+@bot.command()
+async def report(ctx, *, issue=None):
+    """Report for any server issues"""
+    issuechanl = discord.utils.get(ctx.guild.channels, name='server-issues')
+    issueid = (random.randint(0, 10000))
+    emb = discord.Embed(
+        title="New Issue Report!",
+        description=f"Issue submitted by {ctx.message.author}",
+        color=0xB53737
+    )
+    emb.add_field(name="Issue", value=issue, inline=False)
+    emb.set_footer(text=f"IssueID = {issueid}")
+    await issuechanl.send(embed=emb)
+    embb = discord.Embed(
+        title="Issue Reported",
+        description=f"You reported a issue for the server '{ctx.guild.name}'",
+        color=0xFFF200
+    )
+    embb.add_field(name="You reported for:", value=issue, inline=False)
+    embb.add_field(name="Your Issue ID is:", value=issueid, inline=False)
+    embb.add_field(name='Remember!', value=f"Please remember your Issue ID as you will be contacted by a staff member with that ID, if you forget it, then you can't discuss the issue with the staff team of '{ctx.guild.name}'", inline=False)
+    await ctx.send(message.author, embed=embb)
 
 #Calculator!
 #Addition...
