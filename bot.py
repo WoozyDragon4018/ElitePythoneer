@@ -192,6 +192,17 @@ async def on_message_delete(message):
     emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
     await logchannel.send(embed=emb)
 
+#ReactionRoles
+@bot.event
+async def on_raw_reaction_add(payload):
+    if payload.guild_id is None:
+        return
+    guild = bot.get_guild(payload.guild_id)
+    role = discord.utils.get(guild.roles, name="aviationnewsping")
+    member = guild.get_member(payload.user_id)
+    if str(payload.channel_id) in aviationnewsping:
+        await member.add_roles(role, reason="subscribed to aviation news.")
+
 
 @commands.has_role("Staff")
 @bot.command()

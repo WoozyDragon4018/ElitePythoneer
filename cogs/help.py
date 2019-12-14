@@ -11,8 +11,7 @@ class CustomHelpCommand(commands.HelpCommand):
 		)
 		commands_to_show = []
 		for command in self.context.bot.commands:
-			if await command.can_run(self.context):
-				commands_to_show.append(command.qualified_name)
+			commands_to_show.append(command.qualified_name)
 		available_commands = f"```\n{', '.join(commands_to_show)}\n```"
 		emb.add_field(name="Available Commands", value=available_commands)
 		await self.context.send(embed=emb)
