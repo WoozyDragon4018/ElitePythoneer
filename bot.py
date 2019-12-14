@@ -140,7 +140,7 @@ async def report(ctx, *, issue=None):
     embb.add_field(name="You reported for:", value=issue, inline=False)
     embb.add_field(name="Your Issue ID is:", value=issueid, inline=False)
     embb.add_field(name='Remember!', value=f"Please remember your Issue ID as you will be contacted by a staff member with that ID, if you forget it, then you can't discuss the issue with the staff team of '{ctx.guild.name}'", inline=False)
-    await ctx.send(message.author, embed=embb)
+    await ctx.send(ctx.message.author, embed=embb)
 
 #Calculator!
 #Addition...
