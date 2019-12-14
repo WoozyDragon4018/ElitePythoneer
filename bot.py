@@ -124,6 +124,7 @@ async def report(ctx, *, issue=None):
     """Report for any server issues"""
     issuechanl = discord.utils.get(ctx.guild.channels, name='server-issues')
     issueid = (random.randint(0, 10000))
+    author = message.author
     emb = discord.Embed(
         title="New Issue Report!",
         description=f"Issue submitted by {ctx.message.author}",
@@ -240,9 +241,9 @@ async def on_raw_reaction_add(payload):
     role_id = 654917712706928652
     role = get(guild.roles, id=role_id)
     member = guild.get_member(payload.user_id)
-    avnewsping = ["655403977000615938"]
+    avserverping = ["655403977000615938"]
     logchannel = ["654519800105664513"]
-    if str(payload.channel_id) in avnewsping:
+    if str(payload.channel_id) in avserverping:
         await member.add_roles(role, reason="Subscribed to Server Announcements!")
 #Server Special Ends.
 
