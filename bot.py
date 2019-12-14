@@ -192,7 +192,9 @@ async def on_message_delete(message):
     emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
     await logchannel.send(embed=emb)
 
+#MM Aviation's Community Special!
 #ReactionRoles
+#Aviation News Ping
 @bot.event
 async def on_raw_reaction_add(payload):
     if payload.guild_id is None:
@@ -202,8 +204,36 @@ async def on_raw_reaction_add(payload):
     role = get(guild.roles, id=role_id)
     member = guild.get_member(payload.user_id)
     avnewsping = ["655403954787844097"]
+    logchannel = ["654519800105664513"]
     if str(payload.channel_id) in avnewsping:
         await member.add_roles(role, reason="Subscribed to Aviation News!")
+        emb = discord.Embed(
+            title="Role Assigned",
+            description=f"{member} has subscribed to Aviation News Ping.",
+            color=0x00FF00
+        )
+        await logchannel.send(embed=emb)
+
+#Server Announcements Ping
+@bot.event
+async def on_raw_reaction_add(payload):
+    if payload.guild_id is None:
+        return
+    guild = bot.get_guild(payload.guild_id)
+    role_id = 654917712706928652
+    role = get(guild.roles, id=role_id)
+    member = guild.get_member(payload.user_id)
+    avnewsping = ["655403977000615938"]
+    logchannel = ["654519800105664513"]
+    if str(payload.channel_id) in avnewsping:
+        await member.add_roles(role, reason="Subscribed to Server Announcements!")
+        emb = discord.Embed(
+            title="Role Assigned",
+            description=f"{member} has subscribed to Server Announcements Ping",
+            color=0x00FF00
+        )
+        await logchannel.send(embed=emb)
+#Server Special Ends.
 
 
 @commands.has_role("Staff")
