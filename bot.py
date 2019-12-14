@@ -207,12 +207,6 @@ async def on_raw_reaction_add(payload):
     logchannel = ["654519800105664513"]
     if str(payload.channel_id) in avnewsping:
         await member.add_roles(role, reason="Subscribed to Aviation News!")
-        emb = discord.Embed(
-            title="Role Assigned",
-            description=f"{member} has subscribed to Aviation News Ping.",
-            color=0x00FF00
-        )
-        await logchannel.send(embed=emb)
 
 #Server Announcements Ping
 @bot.event
@@ -227,12 +221,6 @@ async def on_raw_reaction_add(payload):
     logchannel = ["654519800105664513"]
     if str(payload.channel_id) in avnewsping:
         await member.add_roles(role, reason="Subscribed to Server Announcements!")
-        emb = discord.Embed(
-            title="Role Assigned",
-            description=f"{member} has subscribed to Server Announcements Ping",
-            color=0x00FF00
-        )
-        await logchannel.send(embed=emb)
 #Server Special Ends.
 
 
