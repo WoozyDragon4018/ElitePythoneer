@@ -123,7 +123,7 @@ async def mute(ctx, user:discord.Member, *, reason=None):
 async def report(ctx, *, issue=None):
     """Report for any server issues"""
     issuechanl = discord.utils.get(ctx.guild.channels, name='server-issues')
-    issueid = (random.randint(0, 10000))
+    issueid = (random.randint(0, 1000000))
     author = ctx.message.author
     emb = discord.Embed(
         title="New Issue Report!",
@@ -217,22 +217,7 @@ async def on_message_delete(message):
     emb.add_field(name="Message contained:", value=f"{message.content}", inline=False)
     await logchannel.send(embed=emb)
 
-#MM Aviation's Community Special!
 #ReactionRoles
-#Aviation News Ping
-@bot.event
-async def on_raw_reaction_add(payload):
-    if payload.guild_id is None:
-        return
-    guild = bot.get_guild(payload.guild_id)
-    role_id = 654917614962868236
-    role = get(guild.roles, id=role_id)
-    member = guild.get_member(payload.user_id)
-    avnewsping = ["655403954787844097"]
-    logchannel = ["654519800105664513"]
-    if str(payload.channel_id) in avnewsping:
-        await member.add_roles(role, reason="Subscribed to Aviation News!")
-
 #Server Announcements Ping
 @bot.event
 async def on_raw_reaction_add(payload):
@@ -243,10 +228,9 @@ async def on_raw_reaction_add(payload):
     role = get(guild.roles, id=role_id)
     member = guild.get_member(payload.user_id)
     avserverping = ["655403977000615938"]
-    logchannel = ["654519800105664513"]
     if str(payload.channel_id) in avserverping:
         await member.add_roles(role, reason="Subscribed to Server Announcements!")
-#Server Special Ends.
+
 
 
 @commands.has_role("Staff")
@@ -266,6 +250,20 @@ async def clear(ctx,amount:int):
         embed.add_field(name='Channel', value=f'#{ctx.channel}', inline=False)
         embed.add_field(name='Amount', value=f'{amount}', inline=False)
         await channel.send(embed=embed)
+
+#ReactionRoles
+#Aviation News Ping
+@bot.event
+async def on_raw_reaction_add(payload):
+    if payload.guild_id is None:
+        return
+    guild = bot.get_guild(payload.guild_id)
+    role_id_av = 654917614962868236
+    rolenews = get(guild.roles, id=role_id_av)
+    member = guild.get_member(payload.user_id)
+    avnewsping = ["655403954787844097"]
+    if str(payload.channel_id) in avnewsping:
+        await member.add_roles(rolenews, reason="Subscribed to Aviation News!")
 
 @bot.command()
 async def coinflip(ctx):
@@ -335,9 +333,9 @@ async def suggest(ctx, *, suggest=None):
     )
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
-    msg = await csugl.send(embed=embed)
-    await msg.add_reaction('<:checkmark:654592589747585025>')
-    await msg.add_reaction('<:crossmark:654592592142663681>')
+    mesg = await csugl.send(embed=embed)
+    await mesg.add_reaction('<:checkmark:654592589747585025>')
+    await mesg.add_reaction('<:crossmark:654592592142663681>')
 
 @commands.has_role("Staff")
 @bot.command()
