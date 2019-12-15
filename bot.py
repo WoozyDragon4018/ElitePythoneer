@@ -325,15 +325,17 @@ async def pms(ctx, user: discord.User, *, message=None):
     await user.send(embed=embed)
     await ctx.send(f'{ctx.author.mention}, Succesfully sent your message to ' + str(user) + ' which says : ' + str(message))
 
-@bot.command(pass_context = True)
+@bot.command()
 async def suggest(ctx, *, suggest=None):
     """Used to suggest for the server"""
-    channel = discord.utils.get(ctx.guild.channels, name='suggestions')
-    embed = discord.Embed(color=0xffff00)
-    embed.set_author(name=f'{ctx.author}')
+    csugl = discord.utils.get(ctx.guild.channels, name='suggestions')
+    embed = discord.Embed(
+        title=f"New Suggestion from {ctx.message.author}",
+        color=0xffff00
+    )
     embed.add_field(name='Suggestion:', value=suggest, inline=False)
     embed.set_footer(text='PyBot Suggestions')
-    msg = await channel.send(embed=embed)
+    msg = await csugl.send(embed=embed)
     await msg.add_reaction('<:checkmark:654592589747585025>')
     await msg.add_reaction('<:crossmark:654592592142663681>')
 
@@ -417,7 +419,7 @@ async def on_command_error(ctx, error):
         embed.add_field(name=f"{ctx.author}", value="Main arguments needed to run this command are missing, please refer to the `?help` command for details on this command and which things are required for it to work.", inline=False)
         await ctx.send(embed=embed)
 
-    if isinstance(error, discord.BadArgument):
+    if isinstance(error, commands.BadArgument):
         embed = discord.Embed(
             title="Error!",
             description="Invalid Argument",
